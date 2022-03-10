@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <router-link :to="{ path: defaultRootRoutePath }">
-      <LogoSvg alt="logo" />
+      <LogoSvg alt="logo" width="20" height="20" />
       <h1 v-if="showTitle">{{ title }}</h1>
     </router-link>
   </div>

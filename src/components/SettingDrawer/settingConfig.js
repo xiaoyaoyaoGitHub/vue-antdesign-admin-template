@@ -5,6 +5,10 @@ import themeColor from './themeColor.js'
 
 const colorList = [
   {
+    key: '默认',
+    color: '#00B3A8',
+  },
+  {
     key: '薄暮',
     color: '#F5222D',
   },
@@ -26,7 +30,7 @@ const colorList = [
   },
   {
     key: '拂晓蓝（默认）',
-    color: '#1890FF',
+    color: '#00B3A8',
   },
   {
     key: '极客蓝',

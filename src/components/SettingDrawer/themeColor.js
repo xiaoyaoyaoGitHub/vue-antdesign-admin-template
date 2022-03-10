@@ -10,6 +10,7 @@ export default {
     const colorPalettes = generate(color)
     const rgb = client.varyColor.toNum3(color.replace('#', '')).join(',')
     return lightens.concat(colorPalettes).concat(rgb)
+    // return color
   },
   changeColor(newColor) {
     var options = {

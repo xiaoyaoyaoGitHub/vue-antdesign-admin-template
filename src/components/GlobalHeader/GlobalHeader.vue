@@ -9,7 +9,17 @@
         <div v-if="mode === 'sidemenu'" class="header">
           <header>
             <a-icon v-if="device === 'mobile'" class="trigger" :type="collapsed ? 'menu-fold' : 'menu-unfold'" @click="toggle" />
-            <a-icon v-else class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="toggle" />
+            <!-- <a-icon v-else class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'" @click="toggle" /> -->
+            <logo v-if="device !== 'mobile'" class="top-nav-header" :show-title="device !== 'mobile'" />
+            <div class="header-meun">
+              <a-menu v-model="menuCurrentSelect" mode="horizontal">
+                <template v-for="item in menus">
+                  <a-menu-item :key="item.name"
+                    ><router-link :to="item.path"> {{ item.meta.title }} </router-link></a-menu-item
+                  >
+                </template>
+              </a-menu>
+            </div>
             <user-menu></user-menu>
           </header>
           <multi-tab v-if="multiTab"></multi-tab>
@@ -46,7 +56,6 @@ export default {
   props: {
     mode: {
       type: String,
-      // sidemenu, topmenu
       default: 'sidemenu',
     },
     menus: {
@@ -74,6 +83,22 @@ export default {
       visible: true,
       oldScrollTop: 0,
     }
+  },
+  computed: {
+    /**
+     * menu 默认选中key
+     */
+    menuCurrentSelect() {
+      const currentSelect = this.menus.find((item) => this.currentPath.indexOf(item.path) > -1 || this.currentPath.indexOf(item.redirect) > -1)
+      return [currentSelect.name]
+    },
+    /**
+     * 当前页面路径
+     */
+    currentPath() {
+      const { path } = this.$route || {}
+      return path
+    },
   },
   mounted() {
     // document.addEventListener('scroll', this.handleScroll, { passive: true })
@@ -146,6 +171,12 @@ export default {
       height: 64px;
       box-shadow: 0 1px 4px #ddd;
       .clearfix();
+      .header-meun {
+        flex: 1;
+        .ant-menu-horizontal {
+          border: none;
+        }
+      }
     }
   }
   .ant-pro-multi-tab {

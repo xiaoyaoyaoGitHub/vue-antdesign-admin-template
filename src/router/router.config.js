@@ -4,12 +4,13 @@ import { openPermission } from '@/config/index'
 
 import exampleModle from '@/router/modules/example'
 import linkModle from '@/router/modules/link'
+import { BlankLayout } from '@/layouts/index'
 
 // 自定义 icon引入
 // import { bxAnaalyse } from '@/core/icons'
 
 // 默认加载和登陆成功跳转路由
-export const defaultRootRoutePath = '/dashboard'
+export const defaultRootRoutePath = '/index'
 
 // 不跳转白名单路由名
 export const whiteList = ['login', 'register', 'registerResult']

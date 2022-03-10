@@ -1,37 +1,7 @@
 <template>
   <a-layout :class="['layout', device]">
-    <!-- SideMenu -->
-    <a-drawer
-      v-if="isMobile()"
-      placement="left"
-      :wrapClassName="`drawer-sider ${navTheme}`"
-      :closable="false"
-      :visible="collapsed"
-      @close="drawerClose"
-    >
-      <side-menu mode="inline" :menus="menus" :theme="navTheme" :collapsed="false" :collapsible="true" @menuSelect="menuSelect"></side-menu>
-    </a-drawer>
-
-    <side-menu v-else-if="isSideMenu()" mode="inline" :menus="menus" :theme="navTheme" :collapsed="collapsed" :collapsible="true"></side-menu>
-
-    <a-layout :class="[layoutMode, `content-width-${contentWidth}`]" :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }">
-      <!-- layout header -->
-      <global-header :mode="layoutMode" :menus="menus" :theme="navTheme" :collapsed="collapsed" :device="device" @toggle="toggle" />
-
-      <!-- layout content -->
-      <a-layout-content :style="{ height: '100%', margin: '24px' }">
-        <!-- <multi-tab v-if="multiTab"></multi-tab> -->
-        <route-layout />
-      </a-layout-content>
-
-      <!-- layout footer -->
-      <!-- <a-layout-footer>
-        <global-footer />
-      </a-layout-footer> -->
-
-      <!-- Setting Drawer (show in development mode) -->
-      <settingDrawer v-if="showDrawer" />
-    </a-layout>
+    <global-header :mode="layoutMode" :menus="menus" :collapsed="collapsed" :device="device" @toggle="toggle" />
+    <route-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout>
   </a-layout>
 </template>
 
@@ -39,9 +9,7 @@
 import { triggerWindowResizeEvent } from '@/utils/util'
 import { mapState, mapActions } from 'vuex'
 import { mixin, mixinDevice } from '@/utils/mixin'
-
 import RouteLayout from './RouteLayout'
-import SideMenu from '@/components/Menu/SideMenu'
 import GlobalHeader from '@/components/GlobalHeader'
 // import GlobalFooter from '@/components/GlobalFooter'
 import SettingDrawer from '@/components/SettingDrawer'
@@ -52,10 +20,7 @@ export default {
   mixins: [mixin, mixinDevice],
   components: {
     RouteLayout,
-    SideMenu,
     GlobalHeader,
-    // GlobalFooter,
-    SettingDrawer,
   },
   data() {
     return {

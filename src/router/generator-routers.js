@@ -18,7 +18,7 @@ const constantRouterComponents = {
   500: () => import(/* webpackChunkName: "error" */ '@/views/exception/500'),
 
   // views
-  Index: () => import('@/views/dashboard/Analysis'),
+  // Index: () => import('@/views/Index/Index'),
   TableList: () => import('@/views/example/TableList'),
   TableTest: () => import('@/views/example/test'),
 }
@@ -75,6 +75,7 @@ export const generatorDynamicRouter = (token) => {
 export const generator = (routerMap, parent) => {
   return routerMap.map((item) => {
     const { title, show, hideChildren, hiddenHeaderContent, target, icon, permission } = item.meta || {}
+    console.log(item.component)
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
       path: item.path || `${(parent && parent.path) || ''}/${item.key}`,
