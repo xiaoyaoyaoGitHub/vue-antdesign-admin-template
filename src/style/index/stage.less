@@ -1,0 +1,45 @@
+.index-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  .left {
+    flex: 1;
+    height: 100%;
+
+    .left-top {
+      background: #fff;
+
+      padding: 38px 73px 24px;
+      // 主标题
+      .title {
+        .sc(22px, #0F0F0F);
+        line-height: 19.44px;
+        font-weight: bolder;
+      }
+      // 副标题
+      .subtitle {
+        .sc(12.96px, #636363);
+        line-height: 19.44px;
+        padding-top: 23.7px;
+        span {
+          .sc(22.68px, #0F0F0F);
+          line-height: 19.44px;
+          font-weight: 400;
+        }
+      }
+      // 折线图
+      .line {
+        height: 400px;
+      }
+    }
+  }
+
+  .right {
+    flex: 0 0 306px;
+    background: #fff;
+    height: 100%;
+    margin-left: 24px;
+  }
+}

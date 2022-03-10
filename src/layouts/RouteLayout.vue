@@ -1,5 +1,5 @@
 <template>
-  <div class="router-layout">
+  <div class="router-layout" style="height: 100%">
     <transition name="fade-transform" mode="out-in">
       <keep-alive :exclude="excludeViews">
         <router-view :key="key" />

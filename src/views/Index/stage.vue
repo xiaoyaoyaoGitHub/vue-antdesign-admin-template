@@ -1,7 +1,18 @@
 <template>
-  <section class="Hello">
-    <h1>工作台~</h1>
-    <p>欢迎来到工作台/统计页面（默认根路由页面，可根据需求调整）</p>
+  <section class="index-center">
+    <section class="left">
+      <section class="left-top borderRadius">
+        <div class="title">中午好，骆冰</div>
+        <div class="subtitle">你企业的客户总人数已达 <span>1,135</span> 人，客户群总人数已达 <span>833</span> 人</div>
+        <a-divider />
+        <div id="line" ref="chart"></div>
+        <!-- <div class="border"></div> -->
+        <!-- <Button class="ant-btn ant-btn-primary">Primary Button</Button>
+        <Button type="link">Link Button</Button> -->
+      </section>
+      <section class="left-bottom"></section>
+    </section>
+    <section class="right borderRadius"></section>
   </section>
 </template>
 
@@ -13,13 +24,15 @@ export default {
   },
   components: {},
   watch: {},
-  mounted() {},
-  methods: {},
+  mounted() {
+    this.init()
+  },
+  methods: {
+    init() {},
+  },
 }
 </script>
 
 <style scoped lang="less">
-h1 {
-  .sc(24px,#333);
-}
+@import url('@/style/index/stage.less');
 </style>

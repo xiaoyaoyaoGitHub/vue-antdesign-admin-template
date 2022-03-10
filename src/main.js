@@ -20,7 +20,6 @@ import '@/style/global.less'
 // 给 axios Promise 扩展 finally
 import promiseFinally from 'promise.prototype.finally'
 promiseFinally.shim()
-
 Vue.config.productionTip = false
 
 Vue.use(VueAxios)

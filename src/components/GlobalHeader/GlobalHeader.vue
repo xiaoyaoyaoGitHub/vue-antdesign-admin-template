@@ -88,9 +88,12 @@ export default {
     /**
      * menu 默认选中key
      */
-    menuCurrentSelect() {
-      const currentSelect = this.menus.find((item) => this.currentPath.indexOf(item.path) > -1 || this.currentPath.indexOf(item.redirect) > -1)
-      return [currentSelect.name]
+    menuCurrentSelect: {
+      get() {
+        const currentSelect = this.menus.find((item) => this.currentPath.indexOf(item.path) > -1 || this.currentPath.indexOf(item.redirect) > -1)
+        return [currentSelect.name]
+      },
+      set(value) {},
     },
     /**
      * 当前页面路径

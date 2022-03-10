@@ -1,7 +1,7 @@
 <template>
   <a-layout class="index-layout-content">
     <!-- 页面左侧列表 -->
-    <side-menu mode="inline" :menus="menus" theme="light" :collapsible="true"> </side-menu>
+    <!-- <side-menu mode="inline" :menus="menus" theme="light" :collapsible="true"> </side-menu> -->
     <!-- layout content -->
     <a-layout-content>
       <route-layout />
@@ -13,13 +13,13 @@
 import { mapState } from 'vuex'
 import { openPermission } from '@/config/index'
 import RouteLayout from '@/layouts/RouteLayout.vue'
-import SideMenu from '@/components/Menu/SideMenu'
+// import SideMenu from '@/components/Menu/SideMenu'
 
 export default {
   name: 'Index',
   components: {
     RouteLayout,
-    SideMenu,
+    // SideMenu,
   },
   data() {
     return {

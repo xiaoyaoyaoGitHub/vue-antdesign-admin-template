@@ -1,20 +1,20 @@
 <template>
   <div class="logo">
     <router-link :to="{ path: defaultRootRoutePath }">
-      <LogoSvg alt="logo" width="20" height="20" />
+      <!-- <Logo1 alt="logo" width="20" height="20" />
+      <Logo2 alt="logo" width="20" height="20" /> -->
+      <img src="@/assets/logo2.png" alt="" />
+
       <h1 v-if="showTitle">{{ title }}</h1>
     </router-link>
   </div>
 </template>
 
 <script>
-import LogoSvg from '@/assets/logo.svg?inline'
 import { defaultRootRoutePath } from '@/router/router.config'
 export default {
   name: 'Logo',
-  components: {
-    LogoSvg,
-  },
+  components: {},
   data() {
     return {
       defaultRootRoutePath,
@@ -23,7 +23,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Ant Design Pro',
+      default: 'Xhotel智慧酒店',
       required: false,
     },
     showTitle: {
