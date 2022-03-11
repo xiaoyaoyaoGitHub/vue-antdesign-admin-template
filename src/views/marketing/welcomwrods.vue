@@ -10,7 +10,7 @@
 import Tinymce from '@/components/Tinymce'
 
 export default {
-  name: 'exampleTest',
+  name: 'welcomwrods',
   data() {
     return {
       content1: '',

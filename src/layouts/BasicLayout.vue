@@ -2,6 +2,7 @@
   <a-layout :class="['layout', device]">
     <global-header :mode="layoutMode" :menus="menus" :collapsed="collapsed" :device="device" @toggle="toggle" />
     <route-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout>
+    <!-- <blank-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></blank-layout> -->
   </a-layout>
 </template>
 
@@ -13,6 +14,7 @@ import RouteLayout from './RouteLayout'
 import GlobalHeader from '@/components/GlobalHeader'
 // import GlobalFooter from '@/components/GlobalFooter'
 import SettingDrawer from '@/components/SettingDrawer'
+import BlankLayout from './BlankLayout.vue'
 import { openPermission, prodShowSettingDrawer } from '@/config/index'
 import { syncRouterMap } from '@/router/router.config'
 export default {
@@ -21,6 +23,7 @@ export default {
   components: {
     RouteLayout,
     GlobalHeader,
+    BlankLayout,
   },
   data() {
     return {

@@ -4,7 +4,8 @@
     <side-menu mode="inline" :menus="menus" theme="light" :collapsible="true"> </side-menu>
     <!-- layout content -->
     <a-layout-content>
-      <route-layout />
+      <!-- <route-layout /> -->
+      <blank-layout></blank-layout>
     </a-layout-content>
   </a-layout>
 </template>
@@ -13,12 +14,14 @@
 import { mapState } from 'vuex'
 import { openPermission } from '@/config/index'
 import RouteLayout from '@/layouts/RouteLayout.vue'
+import BlankLayout from '@/layouts/BlankLayout.vue'
 import SideMenu from '@/components/Menu/SideMenu'
 
 export default {
   name: 'Index',
   components: {
     RouteLayout,
+    BlankLayout,
     SideMenu,
   },
   data() {

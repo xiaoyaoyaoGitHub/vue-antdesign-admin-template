@@ -1,16 +1,23 @@
 <template>
-  <section class="TableList">
-    <div class="button-view">
-      <template v-if="noData">
-        <a-button type="primary" @click="getList" icon="cloud-download">获取数据</a-button>
-        <a-button type="danger" disabled icon="redo">重置数据</a-button>
-      </template>
-      <template v-else>
-        <a-button type="primary" disabled icon="cloud-download">获取数据</a-button>
-        <a-button type="danger" @click="resetList" icon="redo">重置数据</a-button>
-      </template>
-    </div>
-    <a-divider orientation="left">表格展示：</a-divider>
+  <section class="staff">
+    <p class="desc">新建员工活码后，客户可以通过扫描活码添加成员好友，自动给客户打标签和发送欢迎语。</p>
+    <a-divider />
+    <a-form class="form" layout="inline">
+      <a-form-item label="活码名称">
+        <a-input placeholder="Basic usage" />
+      </a-form-item>
+      <a-form-item label="创建人">
+        <a-input placeholder="Basic usage" />
+      </a-form-item>
+      <a-form-item label="创建时间">
+        <a-input placeholder="Basic usage" />
+      </a-form-item>
+      <a-form-item label="使用员工">
+        <a-input placeholder="Basic usage" />
+      </a-form-item>
+      <a-button type="primary">查询</a-button>
+    </a-form>
+    <!-- <a-divider orientation="left">表格展示：</a-divider> -->
     <a-table
       :locale="locale"
       :columns="columns"
@@ -51,7 +58,7 @@ const columns = [
   },
 ]
 export default {
-  name: 'exampleTableList',
+  name: 'StaffCode',
   components: {},
   data() {
     return {
@@ -64,6 +71,7 @@ export default {
       locale: {
         emptyText: '数据加载中...',
       },
+      current: ['staff'],
     }
   },
   computed: {
@@ -114,21 +122,6 @@ export default {
   },
 }
 </script>
-
-<style lang="less">
-.TableList {
-  height: 100%;
-  margin-left: 15px;
-  background: #fff;
-  padding: 30px;
-  .button-view {
-    margin-bottom: 30px;
-    button {
-      margin-right: 20px;
-      &:last-of-type {
-        margin-right: 0;
-      }
-    }
-  }
-}
+<style scoped lang="less">
+@import url('@/style/marketing/liveQRcode/staff.less');
 </style>

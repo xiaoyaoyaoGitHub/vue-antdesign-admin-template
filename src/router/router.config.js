@@ -68,8 +68,8 @@ let syncRouterMap = [
           },
         ],
       },
-      exampleModle,
-      linkModle,
+      // exampleModle,
+      // linkModle,
     ],
   },
 ]
