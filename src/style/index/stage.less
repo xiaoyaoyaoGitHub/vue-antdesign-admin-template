@@ -7,39 +7,186 @@
   .left {
     flex: 1;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .left-top {
       background: #fff;
-
+      flex: 1;
       padding: 38px 73px 24px;
+
       // 主标题
       .title {
         .sc(22px, #0F0F0F);
         line-height: 19.44px;
         font-weight: bolder;
       }
+
       // 副标题
       .subtitle {
         .sc(12.96px, #636363);
         line-height: 19.44px;
         padding-top: 23.7px;
+
         span {
           .sc(22.68px, #0F0F0F);
           line-height: 19.44px;
           font-weight: 400;
         }
       }
-      // 折线图
-      .line {
-        height: 400px;
+
+      .lineType {
+        .item {
+          flex: 0 0 auto;
+          margin-right: 30px;
+
+          &:last-child {
+            flex: 1;
+            text-align: right;
+
+            span {
+              .sc(12px, @primary-color)
+            }
+          }
+
+          span {
+            font-size: 14.4px;
+            line-height: 21.6px;
+            color: #0F0F0F;
+            display: inline-block;
+          }
+
+          &.activity {
+            span {
+              color: @primary-color;
+              border-bottom: 2px solid @primary-color;
+            }
+          }
+        }
+
+        .notice {
+          float: right;
+          color: @primary-color;
+
+        }
+      }
+
+      .charts {
+        position: relative;
+        margin-top: 28px;
+
+        .time-select {
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 99;
+          background: #F5F5F5;
+          border-radius: 3.6px;
+          cursor: pointer;
+          overflow: hidden;
+          .sc(12.6px, #636363);
+
+          &>div {
+            width: 63px;
+            line-height: 19.8px;
+            padding: 4.5px 0;
+
+            &.activity {
+              background: #2F2F2F;
+              color: #fff;
+            }
+          }
+        }
+
+        // 折线图
+        #line {
+          height: 300px;
+        }
+      }
+
+    }
+
+    // 模块下部
+    .left-bottom {
+      flex: 1;
+      margin-top: 15px;
+      background: #fff;
+
+      &.custormTypes {
+        flex-wrap: wrap;
+
+        &>div {
+          flex: 0 0 20%;
+          cursor: pointer;
+
+          img {
+            width: 33px;
+            height: 33px;
+            margin-bottom: 6px;
+          }
+
+          .desc {
+            .sc(12.96px, #000000);
+            line-height: 19.44px;
+          }
+        }
       }
     }
   }
 
   .right {
     flex: 0 0 306px;
-    background: #fff;
     height: 100%;
     margin-left: 24px;
+    display: flex;
+    flex-direction: column;
+
+    .custom-dynamics {
+      flex: 1;
+      padding: 0 14px 24px;
+      background: #fff;
+      max-height: 370px;
+      .title {
+        .sc(16.2px, #0F0F0F);
+        padding: 21.6px 6px 0;
+        font-weight: 700;
+      }
+
+      .timeline {
+        .sc(12px, #2F2F2F);
+        line-height: 21.6px;
+
+        p {
+          margin: 0;
+        }
+
+        .gray {
+          color: #A5A5A5;
+        }
+
+        .ant-timeline-item-last {
+          padding-bottom: 0;
+        }
+      }
+
+      .checkMore {
+        .sc(12.6px, @primary-color)
+      }
+    }
+
+    .schedule {
+      flex: 1;
+      background: #fff;
+      margin-top: 15px;
+      padding:0 24px;
+      .no-plan {
+        .sc(11px,#C0C0C0)
+      }
+      .title {
+        .sc(16.2px, #0F0F0F);
+        padding: 21.6px 6px 0;
+        font-weight: 700;
+      }
+    }
   }
 }

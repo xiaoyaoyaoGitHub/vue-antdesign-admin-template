@@ -117,6 +117,8 @@ export default {
 
 <style lang="less">
 .TableList {
+  height: 100%;
+  margin-left: 15px;
   background: #fff;
   padding: 30px;
   .button-view {

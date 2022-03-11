@@ -4,6 +4,7 @@
 
 #app {
   height: 100%;
+
   &.colorWeak {
     filter: invert(80%);
   }
@@ -166,10 +167,10 @@ body::-webkit-scrollbar-thumb {
 
   .layoutContent {
     flex: 1;
-    padding: 16px 24px 0;
+    padding: 16px 24px;
 
     // .ant-layout-content {
-    //   // padding: 24px
+    //   padding: 24px
     // }
   }
 
@@ -560,6 +561,30 @@ body::-webkit-scrollbar-thumb {
     }
   }
 }
+
 .borderRadius {
   border-radius: 10px;
+}
+
+// flex
+.u-flex {
+  display: flex;
+  align-items: center;
+
+  &>div {
+    flex: 1;
+  }
+}
+
+.u-flex-around {
+  justify-content: space-around;
+
+}
+
+.u-flex-between {
+  justify-content: space-between;
+}
+
+.u-text-center {
+  text-align: center;
 }
