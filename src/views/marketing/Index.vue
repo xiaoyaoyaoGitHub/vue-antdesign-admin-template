@@ -4,8 +4,8 @@
     <side-menu mode="inline" :menus="menus" theme="light" :collapsible="true"> </side-menu>
     <!-- layout content -->
     <a-layout-content>
-      <!-- <route-layout /> -->
-      <blank-layout></blank-layout>
+      <route-layout />
+      <!-- <blank-layout></blank-layout> -->
     </a-layout-content>
   </a-layout>
 </template>

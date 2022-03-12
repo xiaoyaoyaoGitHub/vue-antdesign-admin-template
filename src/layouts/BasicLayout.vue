@@ -1,8 +1,8 @@
 <template>
   <a-layout :class="['layout', device]">
     <global-header :mode="layoutMode" :menus="menus" :collapsed="collapsed" :device="device" @toggle="toggle" />
-    <route-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout>
-    <!-- <blank-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></blank-layout> -->
+    <!-- <route-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout> -->
+    <blank-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></blank-layout>
   </a-layout>
 </template>
 
