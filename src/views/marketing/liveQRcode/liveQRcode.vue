@@ -12,10 +12,11 @@
 </template>
 
 <script>
-import StaffCode from '@/components/marketing/liveQRcode/staff.vue'
+import StaffCode from './staff.vue'
+import CreateEmployee from './createEmployee.vue'
 export default {
   name: 'liveQRcode',
-  components: { StaffCode },
+  components: { StaffCode, CreateEmployee },
   data() {
     return {
       current: ['staff'],

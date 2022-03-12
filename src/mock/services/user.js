@@ -335,7 +335,7 @@ const nav = (options) => {
       id: 1211,
       path: 'liveQRcode',
       name: 'liveQRcode',
-      component: 'marketing/liveQRcode',
+      component: 'marketing/liveQRcode/liveQRcode',
       meta: { title: '活码', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
     },
     {

@@ -1,7 +1,7 @@
 <template>
   <section class="staff">
     <p class="desc">新建员工活码后，客户可以通过扫描活码添加成员好友，自动给客户打标签和发送欢迎语。</p>
-    <a-button type="primary">新建员工活码</a-button>
+    <a-button type="primary" @click="createEmployeeCode">新建员工活码</a-button>
 
     <a-divider />
     <a-form class="form" layout="inline">
@@ -17,7 +17,7 @@
         </a-select>
       </a-form-item>
       <a-form-item label="创建时间">
-        <a-range-picker @change="onChange" />
+        <a-range-picker />
       </a-form-item>
       <a-form-item label="使用员工">
         <a-select ref="select" :value="selectUseStaff" style="width: 120px" @change="handleChange">
@@ -71,27 +71,27 @@ const columns = [
   },
   {
     title: '使用员工',
-    dataIndex: 'email',
+    dataIndex: 'email1',
     ellipsis: true,
   },
   {
     title: '总客户数',
-    dataIndex: 'email',
+    dataIndex: 'email2',
     ellipsis: true,
   },
   {
     title: '昨日新增客户数',
-    dataIndex: 'email',
+    dataIndex: 'email3',
     ellipsis: true,
   },
   {
     title: '创建日期',
-    dataIndex: 'email',
+    dataIndex: 'email4',
     ellipsis: true,
   },
   {
     title: '操作',
-    dataIndex: 'email',
+    dataIndex: 'email5',
     ellipsis: true,
   },
 ]
@@ -111,6 +111,7 @@ export default {
       },
       current: ['staff'],
       selectCreator: '', // 选择创建人
+      selectUseStaff: '',
     }
   },
   computed: {
@@ -123,10 +124,10 @@ export default {
           console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
         },
         getCheckboxProps: (record) => ({
-          props: {
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
-          },
+          // props: {
+          //   disabled: record.name === 'Disabled User', // Column configuration not to be checked
+          //   name: record.name,
+          // },
         }),
       }
     },
@@ -136,6 +137,10 @@ export default {
     this.getList()
   },
   methods: {
+    // 新建员工活码
+    createEmployeeCode() {
+      this.$router.push('addEmployee')
+    },
     // 选择创建人
     handleChange(value) {
       this.selectCreator = value
