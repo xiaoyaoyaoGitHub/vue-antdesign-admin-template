@@ -48,7 +48,7 @@ import {
   notification,
   Timeline,
   Calendar,
-  Empty
+  Empty,
 } from 'ant-design-vue'
 
 Vue.use(ConfigProvider)

@@ -1,27 +1,44 @@
 <template>
   <section class="staff">
     <p class="desc">新建员工活码后，客户可以通过扫描活码添加成员好友，自动给客户打标签和发送欢迎语。</p>
+    <a-button type="primary">新建员工活码</a-button>
+
     <a-divider />
     <a-form class="form" layout="inline">
       <a-form-item label="活码名称">
-        <a-input placeholder="Basic usage" />
+        <a-input placeholder="请输入活码名称" />
       </a-form-item>
       <a-form-item label="创建人">
-        <a-input placeholder="Basic usage" />
+        <a-select ref="select" :value="selectCreator" style="width: 120px" @change="handleChange">
+          <a-select-option value="jack">Jack</a-select-option>
+          <a-select-option value="lucy">Lucy</a-select-option>
+          <a-select-option value="disabled" disabled>Disabled</a-select-option>
+          <a-select-option value="Yiminghe">yiminghe</a-select-option>
+        </a-select>
       </a-form-item>
       <a-form-item label="创建时间">
-        <a-input placeholder="Basic usage" />
+        <a-range-picker @change="onChange" />
       </a-form-item>
       <a-form-item label="使用员工">
-        <a-input placeholder="Basic usage" />
+        <a-select ref="select" :value="selectUseStaff" style="width: 120px" @change="handleChange">
+          <a-select-option value="jack">Jack</a-select-option>
+          <a-select-option value="lucy">Lucy</a-select-option>
+          <a-select-option value="disabled" disabled>Disabled</a-select-option>
+          <a-select-option value="Yiminghe">yiminghe</a-select-option>
+        </a-select>
       </a-form-item>
       <a-button type="primary">查询</a-button>
     </a-form>
     <!-- <a-divider orientation="left">表格展示：</a-divider> -->
+    <div class="table-operations">
+      <a-button>下载</a-button>
+      <a-button>删除</a-button>
+    </div>
     <a-table
       :locale="locale"
       :columns="columns"
       :rowKey="(record) => record.login.uuid"
+      :rowSelection="rowSelection"
       :dataSource="data"
       :pagination="pagination"
       :loading="loading"
@@ -37,14 +54,14 @@ import { getList } from '@/api/example/table'
 
 const columns = [
   {
-    title: 'Name',
+    title: '全部活码',
     dataIndex: 'name',
     sorter: true,
     width: '20%',
     scopedSlots: { customRender: 'name' },
   },
   {
-    title: 'Gender',
+    title: '创建人',
     dataIndex: 'gender',
     filters: [
       { text: 'Male', value: 'male' },
@@ -53,8 +70,29 @@ const columns = [
     width: '20%',
   },
   {
-    title: 'Email',
+    title: '使用员工',
     dataIndex: 'email',
+    ellipsis: true,
+  },
+  {
+    title: '总客户数',
+    dataIndex: 'email',
+    ellipsis: true,
+  },
+  {
+    title: '昨日新增客户数',
+    dataIndex: 'email',
+    ellipsis: true,
+  },
+  {
+    title: '创建日期',
+    dataIndex: 'email',
+    ellipsis: true,
+  },
+  {
+    title: '操作',
+    dataIndex: 'email',
+    ellipsis: true,
   },
 ]
 export default {
@@ -72,11 +110,25 @@ export default {
         emptyText: '数据加载中...',
       },
       current: ['staff'],
+      selectCreator: '', // 选择创建人
     }
   },
   computed: {
     noData() {
       return this.data.length === 0
+    },
+    rowSelection() {
+      return {
+        onChange: (selectedRowKeys, selectedRows) => {
+          console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+        },
+        getCheckboxProps: (record) => ({
+          props: {
+            disabled: record.name === 'Disabled User', // Column configuration not to be checked
+            name: record.name,
+          },
+        }),
+      }
     },
   },
   watch: {},
@@ -84,6 +136,10 @@ export default {
     this.getList()
   },
   methods: {
+    // 选择创建人
+    handleChange(value) {
+      this.selectCreator = value
+    },
     handleTableChange(pagination, filters, sorter) {
       // console.log(pagination)
       const pager = { ...this.pagination }

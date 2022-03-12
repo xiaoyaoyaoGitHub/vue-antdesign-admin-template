@@ -11,7 +11,7 @@
     "lint-fix": "vue-cli-service lint --fix"
   },
   "dependencies": {
-    "ant-design-vue": "1.6.5",
+    "ant-design-vue": "^1.7.8",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "echarts": "^5.3.1",
