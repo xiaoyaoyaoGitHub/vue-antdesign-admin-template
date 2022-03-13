@@ -1,52 +1,56 @@
 <template>
-  <section class="staff">
-    <p class="desc">新建员工活码后，客户可以通过扫描活码添加成员好友，自动给客户打标签和发送欢迎语。</p>
-    <a-button type="primary" @click="createEmployeeCode">新建员工活码</a-button>
+  <div>
+    <slot name="header"></slot>
+    <section class="staff">
+      <p class="desc">新建员工活码后，客户可以通过扫描活码添加成员好友，自动给客户打标签和发送欢迎语。</p>
+      <a-button type="primary" @click="showModal">新建员工活码</a-button>
 
-    <a-divider />
-    <a-form class="form" layout="inline">
-      <a-form-item label="活码名称">
-        <a-input placeholder="请输入活码名称" />
-      </a-form-item>
-      <a-form-item label="创建人">
-        <a-select ref="select" :value="selectCreator" style="width: 120px" @change="handleChange">
-          <a-select-option value="jack">Jack</a-select-option>
-          <a-select-option value="lucy">Lucy</a-select-option>
-          <a-select-option value="disabled" disabled>Disabled</a-select-option>
-          <a-select-option value="Yiminghe">yiminghe</a-select-option>
-        </a-select>
-      </a-form-item>
-      <a-form-item label="创建时间">
-        <a-range-picker />
-      </a-form-item>
-      <a-form-item label="使用员工">
-        <a-select ref="select" :value="selectUseStaff" style="width: 120px" @change="handleChange">
-          <a-select-option value="jack">Jack</a-select-option>
-          <a-select-option value="lucy">Lucy</a-select-option>
-          <a-select-option value="disabled" disabled>Disabled</a-select-option>
-          <a-select-option value="Yiminghe">yiminghe</a-select-option>
-        </a-select>
-      </a-form-item>
-      <a-button type="primary">查询</a-button>
-    </a-form>
-    <!-- <a-divider orientation="left">表格展示：</a-divider> -->
-    <div class="table-operations">
-      <a-button>下载</a-button>
-      <a-button>删除</a-button>
-    </div>
-    <a-table
-      :locale="locale"
-      :columns="columns"
-      :rowKey="(record) => record.login.uuid"
-      :rowSelection="rowSelection"
-      :dataSource="data"
-      :pagination="pagination"
-      :loading="loading"
-      @change="handleTableChange"
-    >
-      <template slot="name" slot-scope="name"> {{ name.first }} {{ name.last }} </template>
-    </a-table>
-  </section>
+      <a-divider />
+      <a-form class="form" layout="inline">
+        <a-form-item label="活码名称">
+          <a-input placeholder="请输入活码名称" />
+        </a-form-item>
+        <a-form-item label="创建人">
+          <a-select ref="select" :value="selectCreator" style="width: 120px" @change="handleChange">
+            <a-select-option value="jack">Jack</a-select-option>
+            <a-select-option value="lucy">Lucy</a-select-option>
+            <a-select-option value="disabled" disabled>Disabled</a-select-option>
+            <a-select-option value="Yiminghe">yiminghe</a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="创建时间">
+          <a-range-picker />
+        </a-form-item>
+        <a-form-item label="使用员工">
+          <a-select ref="select" :value="selectUseStaff" style="width: 120px" @change="handleChange">
+            <a-select-option value="jack">Jack</a-select-option>
+            <a-select-option value="lucy">Lucy</a-select-option>
+            <a-select-option value="disabled" disabled>Disabled</a-select-option>
+            <a-select-option value="Yiminghe">yiminghe</a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-button type="primary">查询</a-button>
+      </a-form>
+      <!-- <a-divider orientation="left">表格展示：</a-divider> -->
+      <div class="table-operations">
+        <a-button>下载</a-button>
+        <a-button>删除</a-button>
+      </div>
+      <a-table
+        :locale="locale"
+        :columns="columns"
+        :rowKey="(record) => record.login.uuid"
+        :rowSelection="rowSelection"
+        :dataSource="data"
+        :pagination="pagination"
+        :loading="loading"
+        @change="handleTableChange"
+      >
+        <template slot="name" slot-scope="name"> {{ name.first }} {{ name.last }} </template>
+      </a-table>
+      <a-modal width="50%" title="新建员工活码" :visible="visible" :confirm-loading="confirmLoading" @ok="handleOk" @cancel="handleCancel"> </a-modal>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -95,6 +99,7 @@ const columns = [
     ellipsis: true,
   },
 ]
+
 export default {
   name: 'StaffCode',
   components: {},
@@ -112,7 +117,16 @@ export default {
       current: ['staff'],
       selectCreator: '', // 选择创建人
       selectUseStaff: '',
+      // 弹出对话框入参
+      confirmLoading: false,
+      visible: false, // 模态框是否展示
     }
+  },
+  props: {
+    changeComponent: {
+      type: Function,
+      default: () => {},
+    },
   },
   computed: {
     noData() {
@@ -138,9 +152,7 @@ export default {
   },
   methods: {
     // 新建员工活码
-    createEmployeeCode() {
-      this.$router.push('addEmployee')
-    },
+    createEmployeeCode() {},
     // 选择创建人
     handleChange(value) {
       this.selectCreator = value
@@ -179,6 +191,22 @@ export default {
         total: 0,
       }
       this.loading = false
+    },
+    showModal() {
+      // this.visible = true
+      this.changeComponent('CreateEmployee')
+    },
+    handleOk(e) {
+      this.ModalText = 'The modal will be closed after two seconds'
+      this.confirmLoading = true
+      setTimeout(() => {
+        this.visible = false
+        this.confirmLoading = false
+      }, 2000)
+    },
+    handleCancel(e) {
+      console.log('Clicked cancel button')
+      this.visible = false
     },
   },
 }
