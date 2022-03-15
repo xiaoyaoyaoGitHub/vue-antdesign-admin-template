@@ -15,9 +15,10 @@
 
 <script>
 import Poster from './poster.vue'
+import CreatePoster from './createPoster.vue'
 export default {
   name: 'Index',
-  components: { Poster },
+  components: { Poster, CreatePoster },
   data() {
     return {
       current: ['material'],
@@ -28,7 +29,9 @@ export default {
     console.log('created')
   },
   methods: {
-    changeComponent() {},
+    changeComponent(name) {
+      this.currentTabComponent = name
+    },
   },
 }
 </script>

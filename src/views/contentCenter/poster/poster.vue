@@ -4,7 +4,7 @@
     <slot name="header"></slot>
     <!-- 内容 -->
     <div class="content">
-      <a-button type="primary">添加海报</a-button>
+      <a-button @click="createPoster" type="primary">添加海报</a-button>
       <!-- <a-alert message="Success Tips" type="success" show-icon /> -->
       <p class="desc">
         <a-icon style="fontsize: 14px; color: #00b3a8" type="info-circle" />
@@ -54,6 +54,17 @@
 <script>
 export default {
   name: 'Poster',
+  props: {
+    changeComponent: {
+      type: Function,
+      default: () => {},
+    },
+  },
+  methods: {
+    createPoster() {
+      this.changeComponent('CreatePoster')
+    },
+  },
 }
 </script>
 
