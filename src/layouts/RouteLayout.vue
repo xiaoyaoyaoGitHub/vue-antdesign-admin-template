@@ -1,9 +1,7 @@
 <template>
   <div class="router-layout" style="height: 100%">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive :exclude="excludeViews">
-        <router-view :key="key" />
-      </keep-alive>
+      <router-view :key="$route.path" />
     </transition>
   </div>
 </template>
@@ -11,14 +9,7 @@
 <script>
 export default {
   name: 'RouteLayout',
-  computed: {
-    excludeViews() {
-      return this.$store.state.multiTab.excludeViews
-    },
-    key() {
-      return this.$route.path
-    },
-  },
+  computed: {},
   props: {
     keepAlive: {
       type: Boolean,

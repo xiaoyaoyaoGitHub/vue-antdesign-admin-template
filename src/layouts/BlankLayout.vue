@@ -1,14 +1,13 @@
 <template>
-  <router-view v-slot="{ Component, route }">
-    <transition :name="route.meta.transition || 'fade'">
-      <component :is="Component" />
-    </transition>
+  <router-view :key="$route.path" v-slot="{ Component }">
+    <component :is="Component" />
   </router-view>
 </template>
 
 <script>
 export default {
   name: 'BlankLayout',
+  props: {},
 }
 </script>
 

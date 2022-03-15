@@ -1,8 +1,13 @@
 <template>
   <a-layout :class="['layout', device]">
-    <global-header :mode="layoutMode" :menus="menus" :collapsed="collapsed" :device="device" @toggle="toggle" />
-    <!-- <route-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout> -->
-    <blank-layout class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></blank-layout>
+    <global-header :menus="menus" :collapsed="collapsed" :device="device" @menuSelect="menuSelect" />
+    <!-- <blank-layout
+      :menChange="menuCurrentSelect"
+      :key="menuCurrentSelect"
+      class="layoutContent"
+      :class="[layoutMode, `content-width-fixed`]"
+    ></blank-layout> -->
+    <route-layout :menChange="menuCurrentSelect" class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout>
   </a-layout>
 </template>
 
@@ -30,6 +35,7 @@ export default {
       showDrawer: prodShowSettingDrawer || process.env.NODE_ENV !== 'production',
       collapsed: false,
       menus: [],
+      menuCurrentSelect: '',
     }
   },
   computed: {
@@ -70,10 +76,8 @@ export default {
   },
   methods: {
     ...mapActions(['setSidebar']),
-    toggle() {
-      this.collapsed = !this.collapsed
-      this.setSidebar(!this.collapsed)
-      triggerWindowResizeEvent()
+    menuSelect(key) {
+      console.log(key)
     },
     paddingCalc() {
       let left = ''
@@ -84,7 +88,6 @@ export default {
       }
       return left
     },
-    menuSelect() {},
     drawerClose() {
       this.collapsed = false
     },

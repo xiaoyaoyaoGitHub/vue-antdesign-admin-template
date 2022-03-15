@@ -2,10 +2,6 @@
 import { UserLayout, BasicLayout, RouteLayout } from '@/layouts'
 import { openPermission } from '@/config/index'
 
-import exampleModle from '@/router/modules/example'
-import linkModle from '@/router/modules/link'
-import { BlankLayout } from '@/layouts/index'
-
 // 自定义 icon引入
 // import { bxAnaalyse } from '@/core/icons'
 
@@ -50,27 +46,6 @@ let syncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: '首页' },
-    redirect: `${defaultRootRoutePath}/analysis`,
-    children: [
-      // 默认页
-      {
-        path: defaultRootRoutePath,
-        name: 'dashboard',
-        redirect: `${defaultRootRoutePath}/analysis`,
-        component: RouteLayout,
-        meta: { title: '工作台', keepAlive: true, icon: 'dashboard', permission: ['dashboard'] },
-        children: [
-          {
-            path: `${defaultRootRoutePath}/analysis`,
-            name: 'analysis',
-            component: () => import('@/views/dashboard/Analysis'),
-            meta: { title: 'hello', keepAlive: true, permission: ['dashboard'] },
-          },
-        ],
-      },
-      // exampleModle,
-      // linkModle,
-    ],
   },
 ]
 

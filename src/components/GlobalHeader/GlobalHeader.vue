@@ -15,14 +15,14 @@
               <a-menu v-model="menuCurrentSelect" mode="horizontal">
                 <template v-for="item in menus">
                   <a-menu-item :key="item.name"
-                    ><router-link :to="item.path"> {{ item.meta.title }} </router-link></a-menu-item
+                    ><router-link :to="item.path + '?_=' + new Date().getTime()"> {{ item.meta.title }} </router-link></a-menu-item
                   >
                 </template>
               </a-menu>
             </div>
             <user-menu></user-menu>
           </header>
-          <multi-tab v-if="multiTab"></multi-tab>
+          <!-- <multi-tab v-if="multiTab"></multi-tab> -->
         </div>
         <div v-else :class="['top-nav-header-index', theme]">
           <div class="header-index-wide">
@@ -91,9 +91,12 @@ export default {
     menuCurrentSelect: {
       get() {
         const currentSelect = this.menus.find((item) => this.currentPath.indexOf(item.path) > -1 || this.currentPath.indexOf(item.redirect) > -1)
+        this.$emit('menuSelect', currentSelect.name)
         return [currentSelect.name]
       },
-      set(value) {},
+      set(value) {
+        console.log(value)
+      },
     },
     /**
      * 当前页面路径

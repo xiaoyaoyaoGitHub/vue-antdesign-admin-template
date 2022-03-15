@@ -55,6 +55,10 @@ export default {
     $route: function () {
       this.updateMenu()
     },
+    menu() {
+      console.log('menu update')
+      this.updateMenu()
+    },
   },
   methods: {
     // select menu item

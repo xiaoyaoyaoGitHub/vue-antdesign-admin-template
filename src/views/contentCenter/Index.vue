@@ -1,11 +1,10 @@
 <template>
-  <a-layout key="marketing" class="index-layout-content">
+  <a-layout class="index-layout-content">
     <!-- 页面左侧列表 -->
-    <side-menu data-id="marketing" key="marketing" mode="inline" :menus="menus" theme="light" :collapsible="true"> </side-menu>
+    <side-menu key="contentCenter" mode="inline" :menus="menus" theme="light" :collapsible="true"> </side-menu>
     <!-- layout content -->
     <a-layout-content>
       <route-layout />
-      <!-- <blank-layout></blank-layout> -->
     </a-layout-content>
   </a-layout>
 </template>
@@ -35,7 +34,14 @@ export default {
       mainMenu: (state) => state.permission.addRouters,
     }),
   },
-  watch: {},
+  watch: {
+    $route() {
+      const menus = openPermission ? this.mainMenu : syncRouterMap
+      const children = menus.find((item) => item.path === '/').children
+      const path = this.$route.path
+      this.menus = children.find((item) => path.indexOf(item.path) > -1 || path.indexOf(item.redirect) > -1)?.children || []
+    },
+  },
   created() {
     const menus = openPermission ? this.mainMenu : syncRouterMap
     const children = menus.find((item) => item.path === '/').children

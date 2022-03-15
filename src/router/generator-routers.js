@@ -45,7 +45,6 @@ export const generatorDynamicRouter = (token) => {
   return new Promise((resolve, reject) => {
     getCurrentUserNav({ token })
       .then((res) => {
-        console.log('res', res)
         const { result } = res
         const menuNav = []
         const childrenNav = []
@@ -53,10 +52,8 @@ export const generatorDynamicRouter = (token) => {
         listToTree(result, childrenNav, 0)
         rootRouter.children = childrenNav
         menuNav.push(rootRouter)
-        console.log('menuNav', menuNav)
         const routers = generator(menuNav)
         routers.push(notFoundRouter)
-        console.log('routers', routers)
         resolve(routers)
       })
       .catch((err) => {
@@ -75,7 +72,6 @@ export const generatorDynamicRouter = (token) => {
 export const generator = (routerMap, parent) => {
   return routerMap.map((item) => {
     const { title, show, hideChildren, hiddenHeaderContent, target, icon, permission } = item.meta || {}
-    console.log(item.component)
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
       path: item.path,
