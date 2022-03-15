@@ -346,13 +346,6 @@ const nav = (options) => {
       component: 'marketing/welcome/welcomewords',
       meta: { title: '欢迎语', keepAlive: true, permission: ['dashboard'] },
     },
-    // {
-    //   parentId: 0,
-    //   id: 13,
-    //   path: 'https://pro.loacg.com/docs/getting-started',
-    //   name: 'docs',
-    //   meta: { title: '在线文档', icon: 'select', target: '_blank' },
-    // },
     {
       parentId: 0,
       id: 13,
@@ -377,8 +370,8 @@ const nav = (options) => {
       path: '/contentCenter',
       name: 'contentCenter',
       redirect: 'contentCenter/retrieval',
-      component: 'marketing/Index',
-      meta: { title: '内容中心', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
+      component: 'contentCenter/Index',
+      meta: { title: '内容中心', keepAlive: true, permission: ['dashboard'] },
     },
     {
       parentId: 14,
@@ -394,8 +387,8 @@ const nav = (options) => {
       id: 1411,
       path: 'poster',
       name: 'poster',
-      component: 'contentCenter/poster/poster',
-      meta: { title: '内容检索', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
+      component: 'contentCenter/poster/Index',
+      meta: { title: '海报', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
     },
     // {
     //   parentId: 0,

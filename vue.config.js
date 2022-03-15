@@ -84,6 +84,7 @@ const vueConfig = {
             // 通过修改默认ant主题的less变量实现自定义主题
             'primary-color': '#00B3A8',
             'border-radius-base': '2px',
+            'primary-color-opacity': '#daf2ed',
             // 'link-color': 'red',
             // 'border-radius-base': '0px',
           },
