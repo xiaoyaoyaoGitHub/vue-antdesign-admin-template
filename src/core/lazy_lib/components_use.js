@@ -49,6 +49,7 @@ import {
   Timeline,
   Calendar,
   Empty,
+  Result
 } from 'ant-design-vue'
 
 Vue.use(ConfigProvider)
@@ -92,6 +93,7 @@ Vue.use(notification)
 Vue.use(Timeline)
 Vue.use(Calendar)
 Vue.use(Empty)
+Vue.use(Result)
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message

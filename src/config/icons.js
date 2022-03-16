@@ -4,6 +4,7 @@ export { default as CloseOutline } from '@ant-design/icons/lib/outline/CloseOutl
 export { default as CheckOutline } from '@ant-design/icons/lib/outline/CheckOutline'
 export { default as LoadingOutline } from '@ant-design/icons/lib/outline/LoadingOutline'
 export { default as CheckCircleOutline } from '@ant-design/icons/lib/outline/CheckCircleOutline'
+export { default as MoreOutline } from '@ant-design/icons/lib/outline/MoreOutline'
 export { default as InfoCircleOutline } from '@ant-design/icons/lib/outline/InfoCircleOutline'
 export { default as CloseCircleOutline } from '@ant-design/icons/lib/outline/CloseCircleOutline'
 export { default as ExclamationCircleOutline } from '@ant-design/icons/lib/outline/ExclamationCircleOutline'

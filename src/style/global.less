@@ -436,11 +436,6 @@ body::-webkit-scrollbar-thumb {
     }
   }
 
-  &.ant-fixed-sidemenu {
-    position: fixed;
-    height: 100%;
-  }
-
   .logo {
     position: relative;
     height: 64px;
@@ -587,4 +582,24 @@ body::-webkit-scrollbar-thumb {
 
 .u-text-center {
   text-align: center;
+}
+
+// 气泡框
+.operation {
+  .ant-popover-inner {
+    .ant-popover-inner-content {
+      padding: 12px 0 !important;
+    }
+  }
+
+
+  .pointer {
+    cursor: pointer;
+    padding: 5px 16px;
+    margin: 0;
+
+    &:hover {
+      background: #eee;
+    }
+  }
 }
