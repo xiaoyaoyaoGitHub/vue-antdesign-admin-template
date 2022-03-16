@@ -380,7 +380,7 @@ const nav = (options) => {
       name: 'retrieval',
       redirect: 'retrieval/poster',
       component: 'BlankLayout',
-      meta: { title: '内容检索', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
+      meta: { title: '内容检索', keepAlive: true, permission: ['dashboard'] },
     },
     {
       parentId: 141,
@@ -389,6 +389,14 @@ const nav = (options) => {
       name: 'poster',
       component: 'contentCenter/poster/Index',
       meta: { title: '海报', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
+    },
+    {
+      parentId: 141,
+      id: 1412,
+      path: 'material',
+      name: 'material',
+      component: 'contentCenter/material/Index',
+      meta: { title: '普通素材', keepAlive: true, icon: 'thunderbolt', permission: ['dashboard'] },
     },
     // {
     //   parentId: 0,

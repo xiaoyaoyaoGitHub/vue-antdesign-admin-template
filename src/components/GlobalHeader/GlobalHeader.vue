@@ -1,6 +1,6 @@
 <template>
   <transition name="showHeader">
-    <div v-if="visible" class="header-animat" :class="multiTab ? 'multi-tab' : ''">
+    <div v-if="visible" class="header-animat">
       <a-layout-header
         v-if="visible"
         :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed']"
