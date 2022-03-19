@@ -431,7 +431,7 @@ const nav = (options) => {
       id: 1251,
       path: 'moments',
       name: 'moments',
-      component: 'unrealized/unrealized',
+      component: 'marketing/wechat/Index',
       meta: { title: '朋友圈动态', keepAlive: true, permission: ['dashboard'] },
     },
     {

@@ -34,6 +34,7 @@
         <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
           <a-button type="primary">确认</a-button>
           <a-button type="default">取消</a-button>
+          <span><a-icon type="info-circle" />通知成员,向选中的客户发送以上消息</span>
         </a-form-model-item>
       </a-form-model>
     </div>

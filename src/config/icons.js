@@ -40,3 +40,4 @@ export { default as ThunderboltOutline } from '@ant-design/icons/lib/outline/Thu
 export { default as SelectOutline } from '@ant-design/icons/lib/outline/SelectOutline'
 export { default as SettingOutline } from '@ant-design/icons/lib/outline/SettingOutline'
 export { default as CloudUploadOutline } from '@ant-design/icons/lib/outline/CloudUploadOutline'
+export { default as UserOutline } from '@ant-design/icons/lib/outline/UserOutline'

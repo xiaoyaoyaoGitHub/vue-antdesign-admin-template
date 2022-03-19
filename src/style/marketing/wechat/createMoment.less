@@ -1,0 +1,56 @@
+.create-moment {
+  header {
+    text-align: center;
+    padding: 10px 0;
+    .sc(14px, #000);
+    position: relative;
+    margin: 0 -15px 0 -15px;
+    border-bottom: 1px solid #eee;
+
+    button {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+
+  .form {
+    padding: 15px 0;
+
+    .staffLists {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+
+      &>span {
+        flex: 0 1 auto;
+        display: inline-block;
+        margin:0 15px 15px 0;
+        padding: 0 8px;
+        background: #eee;
+        color: #000;
+        border-radius: @border-radius-base;
+
+        i {
+          color: @primary-color;
+          margin-right: 5px;
+        }
+      }
+    }
+    .add-material {
+        min-height: 100px;
+        background-color: #efefef;
+        .content {
+            height: 50%;
+        }
+        img {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+        }
+    }
+  }
+}
