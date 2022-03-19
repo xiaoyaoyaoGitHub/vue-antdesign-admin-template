@@ -7,7 +7,7 @@
           <a-menu v-model="current" mode="horizontal">
             <a-menu-item key="Mtext">文本 </a-menu-item>
             <a-menu-item key="MPicture">图片 </a-menu-item>
-            <a-menu-item key="miniprogram">小程序 </a-menu-item>
+            <a-menu-item key="MiniProgram">小程序 </a-menu-item>
           </a-menu>
         </div>
       </template>
@@ -18,9 +18,10 @@
 <script>
 import Mtext from './mtext.vue'
 import MPicture from './mPicture.vue'
+import MiniProgram from './miniprogram.vue'
 export default {
   name: 'Index',
-  components: { Mtext, MPicture },
+  components: { Mtext, MPicture, MiniProgram },
   data() {
     return {
       current: ['Mtext'],

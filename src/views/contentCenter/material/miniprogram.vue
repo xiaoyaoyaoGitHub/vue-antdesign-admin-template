@@ -3,7 +3,7 @@
     <slot name="header"></slot>
     <div class="content">
       <!-- 新建按钮 -->
-      <a-button type="primary" @click="createTextVisibleControl">添加图片</a-button>
+      <a-button type="primary" @click="createTextVisibleControl">添加小程序</a-button>
       <p class="desc">
         <a-icon style="fontsize: 14px; color: #00b3a8" type="info-circle" />
         可在聊天工具栏,欢迎语,群发消息,历史朋友圈等功能使用
@@ -108,29 +108,59 @@
       </a-form>
     </a-modal>
     <!-- 新建文本 -->
-    <a-modal title="添加图片" :visible="createTextVisible" width="50%" @ok="addTextConfirm" @cancel="createTextVisibleControl">
-      <a-form-model :model="createTextForm" :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
-        <a-form-model-item label="图片分类">
+    <a-modal title="添加小程序" :visible="createTextVisible" width="50%" @ok="addTextConfirm" @cancel="createTextVisibleControl">
+      <a-form-model ref="ruleForm" :rules="rules" :model="createTextForm" :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
+        <a-form-model-item label="小程序标题" prop="title" ref="title">
+          <a-input
+            v-model="createTextForm.title"
+            @blur="
+              () => {
+                $refs.title.onFieldBlur()
+              }
+            "
+          />
+        </a-form-model-item>
+        <a-form-model-item label="小程序AppId" prop="miniId" ref="miniId">
+          <a-input
+            v-model="createTextForm.miniId"
+            @blur="
+              () => {
+                $refs.miniId.onFieldBlur()
+              }
+            "
+          />
+          <div class="help" slot="help">如何查看AppId</div>
+        </a-form-model-item>
+        <a-form-model-item label="小程序App路径" prop="miniUrl" ref="miniUrl">
+          <a-input
+            v-model="createTextForm.miniUrl"
+            @blur="
+              () => {
+                $refs.miniUrl.onFieldBlur()
+              }
+            "
+          />
+          <div class="help" slot="help">如何查看AppId</div>
+        </a-form-model-item>
+        <a-form-model-item label="小程序分类" ref="region" prop="region">
           <a-select v-model="createTextForm.region" placeholder="请选择">
             <a-select-option value="shanghai"> Zone one </a-select-option>
             <a-select-option value="beijing"> Zone two </a-select-option>
           </a-select>
         </a-form-model-item>
-        <a-form-model-item label="图片上传">
+        <a-form-model-item label="小程序封面">
           <a-upload
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             list-type="picture-card"
             :file-list="fileList"
             @change="handlePicChange"
           >
-            <div v-if="fileList.length < 8">
+            <div v-if="fileList.length === 0">
               <a-icon type="plus" />
               <div class="ant-upload-text">Upload</div>
             </div>
           </a-upload>
-          <!-- <a-modal :visible="true" :footer="null" @cancel="handleCancel">
-            <img alt="example" style="width: 100%" :src="previewImage" />
-          </a-modal> -->
+          <div class="help" slot="help">建议尺寸500*400</div>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -167,7 +197,7 @@ for (let i = 0; i < 100; i++) {
   })
 }
 export default {
-  name: 'MPicture',
+  name: 'MiniProgram',
   components: {},
   data() {
     this.cacheData = data.map((item) => ({ ...item }))
@@ -182,6 +212,12 @@ export default {
       createTextVisible: false, //新建文本模态框
       createTextForm: {},
       fileList: [],
+      rules: {
+        title: [{ required: true, message: '请输入小程序标题', trigger: 'blur' }],
+        miniId: [],
+        miniUrl: [],
+        region: [],
+      },
     }
   },
   methods: {
@@ -265,5 +301,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('@/style/cententCenter/material/mpicture.less');
+@import url('@/style/cententCenter/material/miniprogram.less');
 </style>
