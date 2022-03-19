@@ -1,0 +1,53 @@
+.content {
+  padding: 24px 0;
+
+  .desc {
+    .sc(12px, @primary-color);
+    margin: 10px 0;
+    display: inline-block;
+    padding-left: 15px;
+  }
+
+  //   分类
+  .classifies {
+    background: @primary-color-opacity;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 15px 5px;
+
+    .label {
+      flex: 0 1 auto;
+      .sc(14px, #000);
+      line-height: 32px;
+    }
+
+    &>.class-content {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-radius: @border-radius-base;
+
+      button {
+        margin: 0 10px;
+      }
+    }
+  }
+
+  //   查询
+  .form {
+    padding: 15px 0;
+
+    button {
+      margin-right: 15px;
+    }
+  }
+
+  //   表格
+  .table {
+      button {
+          margin: 0 15px 15px 0;
+      }
+  }
+}

@@ -159,7 +159,7 @@ export default {
   opacity: 0;
 }
 .header-animat {
-  height: 64px !important;
+  // height: 64px !important;
   &.multi-tab {
     height: 120px !important;
   }

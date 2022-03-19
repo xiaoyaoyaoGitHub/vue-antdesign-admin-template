@@ -1,13 +1,15 @@
 <template>
   <a-layout :class="['layout', device]">
     <global-header :menus="menus" :collapsed="collapsed" :device="device" @menuSelect="menuSelect" />
-    <!-- <blank-layout
+    <blank-layout
       :menChange="menuCurrentSelect"
       :key="menuCurrentSelect"
       class="layoutContent"
       :class="[layoutMode, `content-width-fixed`]"
-    ></blank-layout> -->
-    <route-layout :menChange="menuCurrentSelect" class="layoutContent" :class="[layoutMode, `content-width-fixed`]"></route-layout>
+    ></blank-layout>
+    <!-- <div :menChange="menuCurrentSelect" class="layoutContent" :class="[layoutMode, `content-width-fixed`]">
+      <route-layout></route-layout>
+    </div> -->
   </a-layout>
 </template>
 
