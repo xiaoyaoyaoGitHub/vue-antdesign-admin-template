@@ -1,22 +1,19 @@
 <template>
-  <section class="welcome">
-    <div>
-      <a-menu v-model="current" mode="horizontal">
-        <a-menu-item key="staff"> <a-icon type="mail" />欢迎语 </a-menu-item>
-      </a-menu>
-    </div>
-    <div class="welcom-center">
-      <!-- 新建按钮 -->
-      <a-button type="primary" @click="createTextVisibleControl">新建欢迎语</a-button>
-      <p class="desc">
-        <a-icon style="fontsize: 14px; color: #00b3a8" type="info-circle" />
-        由管理员或者业务负责人统一配置,配置后,客户将在添加成员或者联系人后收到该欢迎语
-      </p>
+  <section class="auto-group">
+    <slot name="header"></slot>
+    <!-- 新建 -->
+    <div class="content">
+      <p class="desc">新建自动拉群后,客户通过员工活码添加员工,自动发送入群引导语,群活码,客户扫码进群</p>
+
+      <a-button type="primary">新建自动拉群</a-button>
+      <a-button type="primary" ghost>功能介绍</a-button>
       <a-divider />
       <!-- 查询 -->
       <a-form layout="inline">
-        <a-form-item label="关键词">
-          <a-input placeholder="请输入关键词" />
+        <a-form-item>
+          <a-input placeholder="请输入关键词">
+            <a-icon slot="prefix" type="search" />
+          </a-input>
         </a-form-item>
         <a-form-item>
           <a-button type="primary">查询</a-button>
@@ -85,20 +82,16 @@ const data = [
   },
 ]
 export default {
-  name: 'welcomwrods',
+  name: 'AutoGroup',
   data() {
     return {
-      current: ['staff'],
       data,
       columns,
     }
   },
-  components: {},
-  watch: {},
-  methods: {},
 }
 </script>
 
-<style scoped lang="less">
-@import url('@/style/marketing/welcome/welcomewords.less');
+<style lang="less" scoped>
+@import url('@/style/marketing/groupTool/autoGroup.less');
 </style>

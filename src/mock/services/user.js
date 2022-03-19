@@ -347,7 +347,7 @@ const nav = (options) => {
       id: 1213,
       path: 'grouptool',
       name: 'grouptool',
-      component: 'unrealized/unrealized',
+      component: 'marketing/groupTool/Index',
       meta: { title: '拉群工具', keepAlive: true, permission: ['dashboard'] },
     },
     {
