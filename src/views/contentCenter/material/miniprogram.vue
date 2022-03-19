@@ -6,7 +6,7 @@
       <a-button type="primary" @click="createTextVisibleControl">添加小程序</a-button>
       <p class="desc">
         <a-icon style="fontsize: 14px; color: #00b3a8" type="info-circle" />
-        可在聊天工具栏,欢迎语,群发消息,历史朋友圈等功能使用
+        添加小程序素材后,可用于企业群发功能
       </p>
       <a-divider />
       <!-- 分类 -->
@@ -40,57 +40,45 @@
       </div>
       <!-- 查询 -->
       <a-form class="form" layout="inline" :form="form" @submit="handleSubmit">
-        <a-form-item label="文本标题/内容">
+        <a-form-item label="小程序名称">
           <a-input v-decorator="['userName']" placeholder="文本标题/内容"> </a-input>
         </a-form-item>
-        <a-form-item label="创建人">
+        <!-- <a-form-item label="创建人">
           <a-select default-value="1" placeholder="所有人" style="width: 120px">
             <a-select-option value="1"> 所有人</a-select-option>
             <a-select-option value="2"> A 2 </a-select-option>
             <a-select-option value="3"> A 3 </a-select-option>
           </a-select>
-        </a-form-item>
+        </a-form-item> -->
         <a-form-item>
           <a-button type="primary">查询</a-button>
           <a-button type="default">删除</a-button>
         </a-form-item>
       </a-form>
-      <!-- 表格 -->
-      <div class="table">
-        <a-button class="editable-add-btn"> 全部 </a-button>
-        <a-button class="editable-add-btn"> 批量导入 </a-button>
-        <a-table :columns="columns" :data-source="data" bordered :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }">
-          <template v-for="col in ['name', 'operator']" :slot="col" slot-scope="text, record, index">
-            <div :key="col">
-              <a-input
-                v-if="record.editable"
-                style="margin: -5px 0"
-                :value="text"
-                @change="(e) => handleChange(e.target.value, record.key, col, index)"
-              />
-              <template v-else>
-                {{ text }}
-              </template>
+      <!-- 小程序展示 -->
+      <div class="miniprogram-list">
+        <a-button>移除分组</a-button>
+        <a-button>删除</a-button>
+        <div class="lists">
+          <div class="item selected">
+            <div class="select">
+              <a-icon class="checkIcon" type="check" />
+              小程序名称
             </div>
-          </template>
-          <template slot="operation" slot-scope="text, record, index">
-            <div class="editable-row-operations">
-              <span v-if="record.editable">
-                <a @click="() => save(record.key, index)">保存</a>
-                <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.key)">
-                  <a>取消</a>
-                </a-popconfirm>
-              </span>
-              <span v-else>
-                <a :disabled="editingKey !== ''" @click="() => edit(record.key)">编辑</a>
-                <a-divider type="vertical" />
-                <a-popconfirm title="确认删除" @confirm="() => remove(record.key)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </span>
+          </div>
+          <div class="item">
+            <div class="select">
+              <a-icon class="checkIcon" type="check" />
+              小程序名称
             </div>
-          </template>
-        </a-table>
+          </div>
+          <div class="item">
+            <div class="select">
+              <a-icon class="checkIcon" type="check" />
+              小程序名称
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- 添加分类 -->
@@ -168,46 +156,14 @@
 </template>
 
 <script>
-const columns = [
-  {
-    title: '活码',
-    dataIndex: 'name',
-    width: '25%',
-    scopedSlots: { customRender: 'name' },
-  },
-  {
-    title: '添加人/添加时间',
-    dataIndex: 'operator',
-    width: '40%',
-    scopedSlots: { customRender: 'operator' },
-  },
-  {
-    title: '操作',
-    dataIndex: 'operation',
-    scopedSlots: { customRender: 'operation' },
-  },
-]
-
-const data = []
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    operator: `London Park no. ${i}`,
-  })
-}
 export default {
   name: 'MiniProgram',
   components: {},
   data() {
-    this.cacheData = data.map((item) => ({ ...item }))
     return {
       form: this.$form.createForm(this, { name: 'horizontal_login' }),
       formClassiesType: this.$form.createForm(this, { name: 'addClassType' }),
-      data,
-      columns,
       editingKey: '',
-      selectedRowKeys: [],
       typeModalVisible: false, // 分类模态框
       createTextVisible: false, //新建文本模态框
       createTextForm: {},

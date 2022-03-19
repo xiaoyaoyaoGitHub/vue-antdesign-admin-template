@@ -44,10 +44,39 @@
     }
   }
 
-  //   表格
-  .table {
+  // 小程序列表
+  .miniprogram-list {
     button {
       margin: 0 15px 15px 0;
+    }
+    .lists {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .item {
+        flex: 0 0 250px;
+        height: 250px;
+        padding: 20px;
+        border: 1px solid @primary-color-opacity;
+        margin-right: 30px;
+        cursor: pointer;
+        .select {
+          text-align: left;
+          .checkIcon {
+            background: #fff;
+            border: 1px solid @primary-color-opacity;
+            color: #fff
+          }
+        }
+        &.selected {
+          .select {
+            .checkIcon {
+              background: @primary-color;
+              color: #fff
+            }
+          }
+        }
+      }
     }
   }
 }
