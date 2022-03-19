@@ -17,14 +17,20 @@
 <script>
 import AutoGroup from './autoGroup.vue'
 import GroupByTag from './groupByTag.vue'
+import CreateGroupByTag from './createGroupByTag.vue'
 export default {
   name: 'Index',
-  components: { AutoGroup, GroupByTag },
+  components: { AutoGroup, GroupByTag, CreateGroupByTag },
   data() {
     return {
       current: ['AutoGroup'],
       currentTabComponent: 'AutoGroup',
     }
+  },
+  watch: {
+    current(newVal) {
+      this.currentTabComponent = newVal[0]
+    },
   },
   created() {
     console.log('created')
