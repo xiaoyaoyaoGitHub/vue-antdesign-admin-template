@@ -546,7 +546,7 @@ const nav = (options) => {
       id: 1313,
       path: 'mtag',
       name: 'mtag',
-      component: 'unrealized/unrealized',
+      component: 'manager/mtag/Index',
       meta: { title: '客户标签', keepAlive: true, permission: ['dashboard'] },
     },
     {
