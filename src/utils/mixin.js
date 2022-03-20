@@ -26,6 +26,15 @@ const mixin = {
   },
 }
 
+const mixinComponent = {
+  props: {
+    changeComponent: {
+      type: Function,
+      default: () => {},
+    },
+  },
+}
+
 const mixinDevice = {
   computed: {
     ...mapState({
@@ -68,4 +77,4 @@ const AppDeviceEnquire = {
   },
 }
 
-export { mixin, AppDeviceEnquire, mixinDevice }
+export { mixin, AppDeviceEnquire, mixinDevice, mixinComponent }

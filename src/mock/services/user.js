@@ -530,7 +530,7 @@ const nav = (options) => {
       id: 1311,
       path: 'mcuntom',
       name: 'mcuntom',
-      component: 'unrealized/unrealized',
+      component: 'manager/mcuntom/Index',
       meta: { title: '客户', keepAlive: true, permission: ['dashboard'] },
     },
     {
@@ -538,7 +538,7 @@ const nav = (options) => {
       id: 1312,
       path: 'mgroup',
       name: 'mgroup',
-      component: 'unrealized/unrealized',
+      component: 'manager/mgroup/Index',
       meta: { title: '客户群', keepAlive: true, permission: ['dashboard'] },
     },
     {
