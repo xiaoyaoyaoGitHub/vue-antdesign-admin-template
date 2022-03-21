@@ -18,9 +18,10 @@
 import Manual from './manual.vue'
 import Auto from './auto.vue'
 import CreateAuto from './createAuto.vue'
+import CreateTagRules from './createTagRules.vue'
 export default {
   name: 'Index',
-  components: { Manual, Auto, CreateAuto },
+  components: { Manual, Auto, CreateAuto, CreateTagRules },
   data() {
     return {
       current: ['Manual'],

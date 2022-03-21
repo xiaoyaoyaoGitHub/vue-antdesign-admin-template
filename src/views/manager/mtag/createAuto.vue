@@ -2,12 +2,12 @@
   <section>
     <header>
       <a-button class="back" type="primary" @click="back"> <a-icon type="left" />返回 </a-button>
-      <span>新建群发客户</span>
+      <span>新建自动标签组</span>
     </header>
     <div class="content">
       <a-row type="flex" justify="start">
         <a-col :span="6">
-          <a-card class="card-item" title="自定义创建" :bordered="false">
+          <a-card @click="createTagRules" class="card-item" title="自定义创建" :bordered="false">
             <p>按需自定义打标签规则</p>
           </a-card>
         </a-col>
@@ -59,6 +59,9 @@ export default {
   methods: {
     back() {
       this.changeComponent('Auto')
+    },
+    createTagRules() {
+      this.changeComponent('CreateTagRules')
     },
   },
 }
