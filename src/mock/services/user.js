@@ -405,7 +405,7 @@ const nav = (options) => {
       id: 1232,
       path: 'massbusiness',
       name: 'massbusiness',
-      component: 'unrealized/unrealized',
+      component: 'marketing/massbusiness/Index',
       meta: { title: '企业群发', keepAlive: true, permission: ['dashboard'] },
     },
     {
