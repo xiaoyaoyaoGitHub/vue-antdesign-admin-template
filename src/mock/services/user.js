@@ -401,6 +401,14 @@ const nav = (options) => {
       meta: { title: '个人群发', keepAlive: true, permission: ['dashboard'] },
     },
     {
+      parentId: 123,
+      id: 1232,
+      path: 'massbusiness',
+      name: 'massbusiness',
+      component: 'unrealized/unrealized',
+      meta: { title: '企业群发', keepAlive: true, permission: ['dashboard'] },
+    },
+    {
       parentId: 12,
       id: 124,
       path: 'chattool',
@@ -612,7 +620,7 @@ const nav = (options) => {
       id: 1332,
       path: 'mclues',
       name: 'mclues',
-      component: 'unrealized/unrealized',
+      component: 'manager/mclues/Index',
       meta: { title: '线索', keepAlive: true, permission: ['dashboard'] },
     },
     {
