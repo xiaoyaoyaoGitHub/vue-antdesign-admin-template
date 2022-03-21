@@ -91,6 +91,7 @@ header {
     text-align: center;
     background: #efefef;
     margin-bottom: 30px;
+    cursor: pointer;
   }
 }
 </style>
