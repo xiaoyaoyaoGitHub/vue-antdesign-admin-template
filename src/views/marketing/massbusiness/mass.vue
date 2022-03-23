@@ -34,18 +34,16 @@
       <div class="table">
         <a-table class="" :columns="columns" :data-source="data">
           <a slot="name" slot-scope="text">{{ text }}</a>
-          <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
-          <span slot="tags" slot-scope="tags">
+          <span slot="customTitle"><a-icon type="smile-o" /> 消息内容</span>
+          <!-- <span slot="tags" slot-scope="tags">
             <a-tag v-for="tag in tags" :key="tag" :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'">
               {{ tag.toUpperCase() }}
             </a-tag>
-          </span>
+          </span> -->
           <span slot="action" slot-scope="text, record">
-            <a>Invite 一 {{ record.name }}</a>
+            <a>编辑</a>
             <a-divider type="vertical" />
-            <a>Delete</a>
-            <a-divider type="vertical" />
-            <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+            <a>删除</a>
           </span>
         </a-table>
       </div>
@@ -62,23 +60,29 @@ const columns = [
     scopedSlots: { customRender: 'name' },
   },
   {
-    title: 'Age',
+    title: '群发类型',
     dataIndex: 'age',
     key: 'age',
   },
   {
-    title: 'Address',
+    title: '创始人',
     dataIndex: 'address',
     key: 'address',
   },
   {
-    title: 'Tags',
+    title: '创建时间',
     key: 'tags',
     dataIndex: 'tags',
     scopedSlots: { customRender: 'tags' },
   },
   {
-    title: 'Action',
+    title: '发送情况',
+    key: 'tags1',
+    dataIndex: 'tags1',
+    scopedSlots: { customRender: 'tags1' },
+  },
+  {
+    title: '操作',
     key: 'action',
     scopedSlots: { customRender: 'action' },
   },
@@ -87,24 +91,27 @@ const columns = [
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    name: '[小程序][2人团]0.01...',
+    age: '发送客户',
+    address: '张三',
+    tags: '2021-05-06 12:30',
+    tags1: '预计发送客户9人...',
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    name: '[小程序][2人团]0.01...',
+    age: '发送客户',
+    address: '李四',
+    tags: '2021-05-06 12:30',
+    tags1: '预计发送客户9人...',
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    name: '[小程序][2人团]0.01...',
+    age: '发送客户',
+    address: '王五',
+    tags1: '预计发送客户9人...',
+    tags: '2021-05-06 12:30',
   },
 ]
 

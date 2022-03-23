@@ -39,14 +39,17 @@
       <a-table
         :locale="locale"
         :columns="columns"
-        :rowKey="(record) => record.login.uuid"
         :rowSelection="rowSelection"
         :dataSource="data"
         :pagination="pagination"
         :loading="loading"
         @change="handleTableChange"
       >
-        <template slot="name" slot-scope="name"> {{ name.first }} {{ name.last }} </template>
+        <span slot="operate">
+          <a>编辑</a>
+          <a-divider type="vertical" />
+          <a>删除</a>
+        </span>
       </a-table>
       <a-modal width="50%" title="新建员工活码" :visible="visible" :confirm-loading="confirmLoading" @ok="handleOk" @cancel="handleCancel"> </a-modal>
     </section>
@@ -61,17 +64,12 @@ const columns = [
     title: '全部活码',
     dataIndex: 'name',
     sorter: true,
-    width: '20%',
+    slots: { title: 'customTitle' },
     scopedSlots: { customRender: 'name' },
   },
   {
     title: '创建人',
     dataIndex: 'gender',
-    filters: [
-      { text: 'Male', value: 'male' },
-      { text: 'Female', value: 'female' },
-    ],
-    width: '20%',
   },
   {
     title: '使用员工',
@@ -95,8 +93,39 @@ const columns = [
   },
   {
     title: '操作',
-    dataIndex: 'email5',
+    dataIndex: 'operate',
     ellipsis: true,
+    scopedSlots: { customRender: 'operate' },
+  },
+]
+
+const data = [
+  {
+    key: '1',
+    name: '张三',
+    gender: '幕城',
+    email1: '幕城',
+    email2: '-',
+    email3: '-',
+    email4: '2021-05-06 18:30',
+  },
+  {
+    key: '2',
+    name: '李四',
+    gender: '幕城',
+    email1: '幕城',
+    email2: '-',
+    email3: '-',
+    email4: '2021-05-06 18:30',
+  },
+  {
+    key: '4',
+    name: '王五',
+    gender: '幕城',
+    email1: '幕城',
+    email2: '-',
+    email3: '-',
+    email4: '2021-05-06 18:30',
   },
 ]
 
@@ -177,7 +206,7 @@ export default {
           const pagination = { ...this.pagination }
           pagination.total = 100
           this.loading = false
-          this.data = res.results
+          this.data = data
           this.pagination = pagination
         })
         .finally((f) => {

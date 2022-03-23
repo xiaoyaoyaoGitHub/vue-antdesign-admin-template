@@ -58,18 +58,13 @@
         </a-space>
         <a-table :columns="columns" :data-source="data">
           <a slot="name" slot-scope="text">{{ text }}</a>
-          <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+          <span slot="customTitle"><a-icon type="smile-o" /> 客户</span>
+          <span slot="ageTitle">第一添加人<a-icon type="info-circle" /> </span>
+
           <span slot="tags" slot-scope="tags">
             <a-tag v-for="tag in tags" :key="tag" :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'">
               {{ tag.toUpperCase() }}
             </a-tag>
-          </span>
-          <span slot="action" slot-scope="text, record">
-            <a>Invite 一 {{ record.name }}</a>
-            <a-divider type="vertical" />
-            <a>Delete</a>
-            <a-divider type="vertical" />
-            <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
           </span>
         </a-table>
       </div>
@@ -143,49 +138,46 @@ const columns = [
     scopedSlots: { customRender: 'name' },
   },
   {
-    title: 'Age',
+    // title: '第一添加人',
+    slots: { title: 'ageTitle' },
+    scopedSlots: { customRender: 'age' },
     dataIndex: 'age',
     key: 'age',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
+    title: '标签',
     key: 'tags',
     dataIndex: 'tags',
     scopedSlots: { customRender: 'tags' },
   },
   {
-    title: 'Action',
-    key: 'action',
-    scopedSlots: { customRender: 'action' },
+    title: '添加时间',
+    dataIndex: 'address',
+    key: 'address',
   },
 ]
 
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    name: '张三',
+    age: '吃土养活猫的安安',
+    address: '2021-04-18 16:00',
+    tags: ['客户添加', '经常'],
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    name: '李四',
+    age: '星星',
+    address: '2021-04-18 16:00',
+    tags: ['一般'],
   },
   {
     key: '3',
-    name: 'Joe Black',
+    name: '李涵',
     age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    address: '2021-04-18 16:00',
+    tags: ['测试测试'],
   },
 ]
 export default {

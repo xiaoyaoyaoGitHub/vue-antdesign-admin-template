@@ -162,8 +162,8 @@ const data = []
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i.toString(),
-    name: `Edrward ${i}`,
-    operator: `London Park no. ${i}`,
+    name: `企业管家介绍 ${i}`,
+    operator: `山成-西区${i}`,
   })
 }
 export default {

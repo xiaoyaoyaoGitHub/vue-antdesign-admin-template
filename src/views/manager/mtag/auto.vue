@@ -18,18 +18,16 @@
       </a-form>
       <a-table class="table" :columns="columns" :data-source="data">
         <a slot="name" slot-scope="text">{{ text }}</a>
-        <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+        <span slot="customTitle"><a-icon type="smile-o" /> 标签组</span>
         <span slot="tags" slot-scope="tags">
           <a-tag v-for="tag in tags" :key="tag" :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'">
             {{ tag.toUpperCase() }}
           </a-tag>
         </span>
         <span slot="action" slot-scope="text, record">
-          <a>Invite 一 {{ record.name }}</a>
+          <a>编辑 一 {{ record.name }}</a>
           <a-divider type="vertical" />
-          <a>Delete</a>
-          <a-divider type="vertical" />
-          <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+          <a>删除</a>
         </span>
       </a-table>
     </div>
@@ -43,24 +41,24 @@ const columns = [
     slots: { title: 'customTitle' },
     scopedSlots: { customRender: 'name' },
   },
+  // {
+  //   title: 'Age',
+  //   dataIndex: 'age',
+  //   key: 'age',
+  // },
+  // {
+  //   title: 'Address',
+  //   dataIndex: 'address',
+  //   key: 'address',
+  // },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
+    title: '标签',
     key: 'tags',
     dataIndex: 'tags',
     scopedSlots: { customRender: 'tags' },
   },
   {
-    title: 'Action',
+    title: '操作',
     key: 'action',
     scopedSlots: { customRender: 'action' },
   },
@@ -69,24 +67,24 @@ const columns = [
 const data = [
   {
     key: '1',
-    name: 'John Brown',
+    name: '(自动)跟进优先级',
     age: 32,
     address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    tags: ['跟进优先级'],
   },
   {
     key: '2',
-    name: 'Jim Green',
+    name: '(自动)意向',
     age: 42,
     address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    tags: ['高意向'],
   },
   {
     key: '3',
-    name: 'Joe Black',
+    name: '(自动)测试',
     age: 32,
     address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    tags: ['测试'],
   },
 ]
 import { mixinComponent } from '@/utils/mixin'

@@ -5,7 +5,7 @@
     <!-- layout content -->
     <a-layout-content>
       <div style="background: #fff; height: 100%; margin-left: 15px">
-        <a-result status="403" title="敬请期待">
+        <a-result status="403" title="请联系管理员开通功能">
           <!-- <template #extra>
         <a-button type="primary"> Back Home </a-button>
       </template> -->

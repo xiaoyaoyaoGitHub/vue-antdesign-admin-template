@@ -65,23 +65,23 @@ const columns = [
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    name: '文本',
+    age: '#客户昵称#您好,欢迎你',
+    address: '固定欢迎语',
     tags: ['nice', 'developer'],
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    name: '文本',
+    age: '#客户昵称#您好,欢迎你',
+    address: '活动欢迎语',
     tags: ['loser'],
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
+    name: '文本',
+    age: '#客户昵称#您好,欢迎你',
+    address: '分段欢迎语',
     tags: ['cool', 'teacher'],
   },
 ]

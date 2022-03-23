@@ -357,7 +357,7 @@ const nav = (options) => {
       name: 'fissiontool',
       component: 'BlankLayout',
       redirect: 'fissiontool/fissiontask',
-      meta: { title: '裂变工具', keepAlive: true, permission: ['dashboard'] },
+      meta: { title: 'sop工具', keepAlive: true, permission: ['dashboard'] },
     },
     {
       parentId: 122,
@@ -365,7 +365,7 @@ const nav = (options) => {
       path: 'fissiontask',
       name: 'fissiontask',
       component: 'unrealized/unrealized',
-      meta: { title: '任务裂变', keepAlive: true, permission: ['dashboard'] },
+      meta: { title: '创建sop任务', keepAlive: true, permission: ['dashboard'] },
     },
     {
       parentId: 122,
@@ -373,7 +373,7 @@ const nav = (options) => {
       path: 'fissiongroup',
       name: 'fissiongroup',
       component: 'unrealized/unrealized',
-      meta: { title: '群裂变', keepAlive: true, permission: ['dashboard'] },
+      meta: { title: '创建sop流程', keepAlive: true, permission: ['dashboard'] },
     },
     {
       parentId: 122,
@@ -381,7 +381,7 @@ const nav = (options) => {
       path: 'fissionpacket',
       name: 'fissionpacket',
       component: 'unrealized/unrealized',
-      meta: { title: '红包裂变', keepAlive: true, permission: ['dashboard'] },
+      meta: { title: 'sop列表', keepAlive: true, permission: ['dashboard'] },
     },
     {
       parentId: 12,
