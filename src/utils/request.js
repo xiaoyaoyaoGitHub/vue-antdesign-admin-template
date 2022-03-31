@@ -5,7 +5,8 @@ import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
 import { TOKEN_NAME, prodUseMock } from '@/config/index'
 
-let baseURL = prodUseMock ? '/api' : process.env.VUE_APP_API_BASE_URL
+// let baseURL = process.env.D ? '' : process.env.VUE_APP_API_BASE_URL
+let baseURL = ''
 
 // 创建 axios 实例
 const service = axios.create({

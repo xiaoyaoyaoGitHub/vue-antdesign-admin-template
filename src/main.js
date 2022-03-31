@@ -9,7 +9,7 @@ import store from '@/store/'
 import { VueAxios } from '@/utils/request'
 
 // --- 注意 ---- mockjs不支持IE，正式项目中请不要在 production ENV中使用
-import '@/mock'
+// import '@/mock'
 
 import setStoreWidthConfig from '@/core/set_store_width_config'
 import '@/core/lazy_use'

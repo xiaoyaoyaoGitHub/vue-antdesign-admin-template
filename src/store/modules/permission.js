@@ -17,7 +17,7 @@ const permission = {
     // 从接口获取
     GenerateRoutesSync({ commit }, data) {
       return new Promise((resolve) => {
-        const { token } = data
+        const { token } = data || {}
         generatorDynamicRouter(token).then((routers) => {
           commit('SET_ROUTERS', routers)
           resolve()

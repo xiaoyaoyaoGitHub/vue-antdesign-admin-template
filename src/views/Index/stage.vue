@@ -2,7 +2,7 @@
   <section class="index-center">
     <section class="left">
       <section class="left-top borderRadius">
-        <div class="title">中午好，骆冰</div>
+        <div class="title">{{ timeFix }},{{ nickname }}</div>
         <div class="subtitle">你企业的客户总人数已达 <span>1,135</span> 人，客户群总人数已达 <span>833</span> 人</div>
         <a-divider />
         <div class="u-flex lineType">
@@ -81,6 +81,9 @@
 
 <script>
 import * as echarts from 'echarts'
+import { timeFix } from '@/utils/util'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'stage',
   data() {
@@ -88,6 +91,7 @@ export default {
       lineType: ['新增客户数', '活动新增客户', '聊天客户数', '流失客户数'],
       typeIndex: 0, //默认选中第一个
       timeSelectIdx: 0,
+      timeFix: timeFix(),
       // 客户操作
       customOperateType: [
         {
@@ -134,6 +138,9 @@ export default {
     }
   },
   components: {},
+  computed: {
+    ...mapGetters(['nickname', 'avatar']),
+  },
   watch: {},
   mounted() {
     this.init()

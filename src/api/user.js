@@ -1,5 +1,7 @@
 import api from './index'
 import { axios } from '@/utils/request'
+import menus from '@/config/menu'
+import users from '@/config/user'
 
 /**
  * login func
@@ -14,7 +16,7 @@ import { axios } from '@/utils/request'
  */
 export function login(parameter) {
   return axios({
-    url: '/auth/login',
+    url: '/admin/login',
     method: 'post',
     data: parameter,
   })
@@ -29,19 +31,11 @@ export function getSmsCaptcha(parameter) {
 }
 
 export function getInfo(token) {
-  return axios({
-    url: '/user/info',
-    method: 'post',
-    data: token,
-  })
+  return Promise.resolve(users)
 }
 
 export function getCurrentUserNav(token) {
-  return axios({
-    url: '/user/nav',
-    method: 'post',
-    data: token,
-  })
+  return Promise.resolve(menus)
 }
 
 export function logout() {

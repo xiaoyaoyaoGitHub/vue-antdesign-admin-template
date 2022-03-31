@@ -38,10 +38,11 @@ router.beforeEach((to, from, next) => {
         store
           .dispatch('GetInfo')
           .then((res) => {
+            // console.log(`GetInfo`, res)
             // 开启了权限控制 走动态添加路由逻辑
             if (openPermission) {
-              const token = res.result && res.result.id
-              store.dispatch('GenerateRoutesSync', { token }).then(() => {
+              // const token = res.result && res.result.id
+              store.dispatch('GenerateRoutesSync').then(() => {
                 // 动态添加可访问路由表
                 router.addRoutes(store.getters.addRouters)
                 if (to.path === redirect) {
