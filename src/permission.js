@@ -34,6 +34,7 @@ router.beforeEach((to, from, next) => {
         NProgress.done()
       }
     } else {
+      console.log(store.getters.roles.length === 0)
       if (store.getters.roles.length === 0) {
         store
           .dispatch('GetInfo')

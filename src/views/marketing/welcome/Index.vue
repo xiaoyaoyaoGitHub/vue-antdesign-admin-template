@@ -1,12 +1,11 @@
 <template>
-  <section id="poster">
+  <section id="welcomewords">
     <!-- 标题 -->
     <component v-bind:is="currentTabComponent" :changeComponent="changeComponent">
       <template v-slot:header>
         <div>
           <a-menu v-model="current" mode="horizontal">
-            <a-menu-item key="AutoGroup">新客自动拉群 </a-menu-item>
-            <a-menu-item key="GroupByTag">老客标签建群 </a-menu-item>
+            <a-menu-item key="Welcomewords"> 欢迎语 </a-menu-item>
           </a-menu>
         </div>
       </template>
@@ -15,17 +14,15 @@
 </template>
 
 <script>
-import AutoGroup from './autoGroup.vue'
-import GroupByTag from './groupByTag.vue'
-import CreateGroupByTag from './createGroupByTag.vue'
-import CreateGroupByAuto from './createGroupByAuto.vue'
+import Welcomewords from './welcomewords.vue'
+import CreateWords from './createwords.vue'
 export default {
   name: 'Index',
-  components: { AutoGroup, GroupByTag, CreateGroupByTag, CreateGroupByAuto },
+  components: { Welcomewords, CreateWords },
   data() {
     return {
-      current: ['AutoGroup'],
-      currentTabComponent: 'AutoGroup',
+      current: ['Welcomewords'],
+      currentTabComponent: 'Welcomewords',
     }
   },
   watch: {
@@ -45,5 +42,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('@/style/cententCenter/poster/index.less');
+#welcomewords {
+  height: 100%;
+}
 </style>

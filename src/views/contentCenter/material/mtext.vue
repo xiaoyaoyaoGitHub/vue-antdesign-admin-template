@@ -59,8 +59,14 @@
       <div class="table">
         <a-button class="editable-add-btn"> 全部 </a-button>
         <a-button class="editable-add-btn"> 批量导入 </a-button>
-        <a-table :columns="columns" :data-source="data" bordered :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }">
-          <template v-for="col in ['name', 'operator']" :slot="col" slot-scope="text, record, index">
+        <a-table
+          rowKey="id"
+          :columns="columns"
+          :data-source="meterials"
+          bordered
+          :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+        >
+          <template v-for="col in ['mediaId', 'createTime']" :slot="col" slot-scope="text, record, index">
             <div :key="col">
               <a-input
                 v-if="record.editable"
@@ -119,7 +125,7 @@
             <a-select-option value="beijing"> Zone two </a-select-option>
           </a-select>
         </a-form-model-item>
-        <a-form-model-item label="文本分类">
+        <a-form-model-item label="文本内容">
           <a-input v-model="form.desc" type="textarea" />
         </a-form-model-item>
       </a-form-model>
@@ -131,15 +137,15 @@
 const columns = [
   {
     title: '全部活码',
-    dataIndex: 'name',
+    dataIndex: 'mediaId',
     width: '25%',
-    scopedSlots: { customRender: 'name' },
+    scopedSlots: { customRender: 'mediaId' },
   },
   {
     title: '添加人/添加时间',
-    dataIndex: 'operator',
+    dataIndex: 'createTime',
     width: '40%',
-    scopedSlots: { customRender: 'operator' },
+    scopedSlots: { customRender: 'createTime' },
   },
   {
     title: '操作',
@@ -156,6 +162,9 @@ for (let i = 0; i < 100; i++) {
     operator: `山成-西区${i}`,
   })
 }
+
+import { mapActions, mapState } from 'vuex'
+import { QUERY_MATERIAL_LIST } from '@/store/mutation-types'
 export default {
   name: 'Mtext',
   components: {},
@@ -173,7 +182,16 @@ export default {
       createTextForm: {},
     }
   },
+  computed: {
+    ...mapState({
+      meterials: (state) => state.material.meterials,
+    }),
+  },
+  created() {
+    this[QUERY_MATERIAL_LIST]()
+  },
   methods: {
+    ...mapActions([QUERY_MATERIAL_LIST]),
     /**
      * 确定添加文本
      */

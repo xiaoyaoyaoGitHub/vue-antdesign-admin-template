@@ -1,7 +1,7 @@
 <template>
   <section id="material">
     <!-- 标题 -->
-    <component v-bind:is="currentTabComponent">
+    <component :is="currentTabComponent">
       <template v-slot:header>
         <div>
           <a-menu v-model="current" mode="horizontal">

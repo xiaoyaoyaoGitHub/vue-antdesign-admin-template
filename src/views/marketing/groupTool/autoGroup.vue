@@ -5,7 +5,7 @@
     <div class="content">
       <p class="desc">新建自动拉群后,客户通过员工活码添加员工,自动发送入群引导语,群活码,客户扫码进群</p>
 
-      <a-button type="primary">新建自动拉群</a-button>
+      <a-button type="primary" @click="createGroupByAuto">新建自动拉群</a-button>
       <a-button type="primary" ghost>功能介绍</a-button>
       <a-divider />
       <!-- 查询 -->
@@ -88,6 +88,17 @@ export default {
       data,
       columns,
     }
+  },
+  props: {
+    changeComponent: {
+      type: Function,
+      default: () => {},
+    },
+  },
+  methods: {
+    createGroupByAuto() {
+      this.changeComponent('CreateGroupByAuto')
+    },
   },
 }
 </script>

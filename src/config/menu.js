@@ -75,7 +75,7 @@ const nav = (options) => {
       id: 1212,
       path: 'welcomewords',
       name: 'welcomewords',
-      component: 'marketing/welcome/welcomewords',
+      component: 'marketing/welcome/Index',
       meta: { title: '欢迎语', keepAlive: true, permission: ['dashboard'] },
     },
     {

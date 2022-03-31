@@ -1,10 +1,6 @@
 <template>
   <section class="welcome">
-    <div>
-      <a-menu v-model="current" mode="horizontal">
-        <a-menu-item key="staff"> <a-icon type="mail" />欢迎语 </a-menu-item>
-      </a-menu>
-    </div>
+    <slot name="header"></slot>
     <div class="welcom-center">
       <!-- 新建按钮 -->
       <a-button type="primary" @click="createTextVisibleControl">新建欢迎语</a-button>
@@ -84,8 +80,11 @@ const data = [
     tags: ['cool', 'teacher'],
   },
 ]
+import { mixinComponent } from '@/utils/mixin'
+
 export default {
-  name: 'welcomwrods',
+  name: 'Welcomwrods',
+  mixins: [mixinComponent],
   data() {
     return {
       current: ['staff'],
@@ -95,7 +94,11 @@ export default {
   },
   components: {},
   watch: {},
-  methods: {},
+  methods: {
+    createTextVisibleControl() {
+      this.changeComponent('CreateWords')
+    },
+  },
 }
 </script>
 
