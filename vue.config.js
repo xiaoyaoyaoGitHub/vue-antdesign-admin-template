@@ -96,7 +96,7 @@ const vueConfig = {
   devServer: {
     port: 8000,
     // 如果您想启用代理，请删除 mockjs /src/main.jsL11
-    proxy: 'http://wxay.xhotel.pub/xhotelxms',
+    proxy: 'http://wxay.xhotel.pub',
   },
 }
 

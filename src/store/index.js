@@ -5,7 +5,7 @@ import app from './modules/app'
 import user from './modules/user'
 import multiTab from './modules/multi-tab'
 import permission from './modules/permission'
-import material from './modules/material' // 普通素材
+import material from './modules/material/material' // 普通素材
 import getters from './getters'
 
 Vue.use(Vuex)

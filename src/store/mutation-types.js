@@ -12,5 +12,3 @@ export const DEFAULT_MULTI_TAB = 'DEFAULT_MULTI_TAB'
 export const SET_MULTI_TAB = 'SET_MULTI_TAB'
 export const ADD_EXCLUDE_VIEW = 'ADD_EXCLUDE_VIEW'
 export const DEL_EXCLUDE_VIEW = 'DEL_EXCLUDE_VIEW'
-// 普通素材
-export const QUERY_MATERIAL_LIST = 'QUERY_MATERIAL_LIST' //查询普通素材

@@ -3,7 +3,7 @@
     <slot name="header"></slot>
     <div class="content">
       <!-- 新建按钮 -->
-      <a-button type="primary" @click="createTextVisibleControl">添加图片</a-button>
+      <a-button type="primary" @click="createImageVisibleControl">添加图片</a-button>
       <p class="desc">
         <a-icon style="fontsize: 14px; color: #00b3a8" type="info-circle" />
         可在聊天工具栏,欢迎语,群发消息,历史朋友圈等功能使用
@@ -108,22 +108,16 @@
       </a-form>
     </a-modal>
     <!-- 新建文本 -->
-    <a-modal title="添加图片" :visible="createTextVisible" width="50%" @ok="addTextConfirm" @cancel="createTextVisibleControl">
-      <a-form-model :model="createTextForm" :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
+    <a-modal title="添加图片" :visible="createImageVisible" width="50%" @ok="addImageConfirm" @cancel="createImageVisibleControl">
+      <a-form-model :model="createImageForm" :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
         <a-form-model-item label="图片分类">
-          <a-select v-model="createTextForm.region" placeholder="请选择">
-            <a-select-option value="shanghai"> Zone one </a-select-option>
-            <a-select-option value="beijing"> Zone two </a-select-option>
+          <a-select v-model="createImageForm.region" placeholder="请选择">
+            <a-select-option value="image"> 图片 </a-select-option>
           </a-select>
         </a-form-model-item>
         <a-form-model-item label="图片上传">
-          <a-upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            list-type="picture-card"
-            :file-list="fileList"
-            @change="handlePicChange"
-          >
-            <div v-if="fileList.length < 8">
+          <a-upload :multiple="true" list-type="picture-card" :file-list="fileList" @change="handlePicChange">
+            <div v-if="fileList.length < 10">
               <a-icon type="plus" />
               <div class="ant-upload-text">Upload</div>
             </div>
@@ -166,6 +160,9 @@ for (let i = 0; i < 100; i++) {
     operator: `山成-西区${i}`,
   })
 }
+import Vue from 'vue'
+import { mapActions } from 'vuex'
+import { METERIAL_UPLOAD } from '@/store/modules/material/type'
 export default {
   name: 'MPicture',
   components: {},
@@ -179,12 +176,18 @@ export default {
       editingKey: '',
       selectedRowKeys: [],
       typeModalVisible: false, // 分类模态框
-      createTextVisible: false, //新建文本模态框
-      createTextForm: {},
+      createImageVisible: false, //新建文本模态框
+      createImageForm: {
+        region: 'image',
+      },
       fileList: [],
+      uploadHeaders: {
+        token: Vue.ls.get('ACCESS_TOKEN'),
+      },
     }
   },
   methods: {
+    ...mapActions([METERIAL_UPLOAD]),
     /**
      * 图片的上传和删除
      */
@@ -195,20 +198,44 @@ export default {
     /**
      * 确定添加图片
      */
-    addTextConfirm() {
-      this.createTextVisibleControl()
+    addImageConfirm() {
+      this.upload()
+      // this.createImageVisibleControl()
     },
+
     /**
      * 添加图片按钮
      */
-    createTextVisibleControl() {
-      this.createTextVisible = !this.createTextVisible
+    createImageVisibleControl() {
+      this.createImageVisible = !this.createImageVisible
     },
     /**
      * 添加分类模态框弹出与关闭
      */
     typeModalControl() {
       this.typeModalVisible = !this.typeModalVisible
+    },
+    /**
+     * 图片上传
+     */
+    async upload() {
+      let formData = new FormData()
+      formData.append('group', '0')
+      formData.append('type', 'image')
+      this.fileList.map((item) => {
+        formData.append('file', item.originFileObj)
+      })
+      const { code, data } = await this.METERIAL_UPLOAD(formData)
+      if (code === 200) {
+        // 上传成功
+        this.$message.success('上传成功', 3, () => {
+          this.fileList = []
+
+          this.createImageVisibleControl()
+        })
+      } else {
+        this.$message.error('上传失败')
+      }
     },
     addTypeModalConfirm() {
       this.typeModalControl()

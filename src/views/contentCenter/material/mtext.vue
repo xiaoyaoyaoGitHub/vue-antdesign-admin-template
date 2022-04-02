@@ -115,18 +115,17 @@
     </a-modal>
     <!-- 新建文本 -->
     <a-modal title="新建文本" :visible="createTextVisible" width="50%" @ok="addTextConfirm" @cancel="createTextVisibleControl">
-      <a-form-model :model="createTextForm" :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
-        <a-form-model-item label="文本标题">
-          <a-input v-model="form.desc" type="textarea" placeholder="仅员工可见,方便查找和适用QA场景" />
+      <a-form-model ref="createTextForm" :rules="createFormRules" :model="createTextForm" :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
+        <a-form-model-item label="文本标题" prop="title">
+          <a-input v-model="createTextForm.title" type="textarea" placeholder="仅员工可见,方便查找和适用QA场景" />
         </a-form-model-item>
-        <a-form-model-item label="文本分类">
-          <a-select v-model="createTextForm.region" placeholder="请选择">
-            <a-select-option value="shanghai"> Zone one </a-select-option>
-            <a-select-option value="beijing"> Zone two </a-select-option>
+        <a-form-model-item label="文本分类" prop="type">
+          <a-select v-model="createTextForm.type" placeholder="请选择">
+            <a-select-option value="text"> 文本 </a-select-option>
           </a-select>
         </a-form-model-item>
-        <a-form-model-item label="文本内容">
-          <a-input v-model="form.desc" type="textarea" />
+        <a-form-model-item label="文本内容" prop="content">
+          <a-input v-model="createTextForm.content" type="textarea" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -154,32 +153,50 @@ const columns = [
   },
 ]
 
-const data = []
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    name: `企业管家介绍 ${i}`,
-    operator: `山成-西区${i}`,
-  })
-}
-
 import { mapActions, mapState } from 'vuex'
-import { QUERY_MATERIAL_LIST } from '@/store/mutation-types'
+import { QUERY_MATERIAL_LIST, METERIAL_ADD_TEXT } from '@/store/modules/material/type'
 export default {
   name: 'Mtext',
   components: {},
   data() {
-    this.cacheData = data.map((item) => ({ ...item }))
     return {
       form: this.$form.createForm(this, { name: 'horizontal_login' }),
       formClassiesType: this.$form.createForm(this, { name: 'addClassType' }),
-      data,
       columns,
       editingKey: '',
       selectedRowKeys: [],
       typeModalVisible: false, // 分类模态框
       createTextVisible: false, //新建文本模态框
-      createTextForm: {},
+      createTextForm: {
+        type: 'text',
+        // title: '',
+        content: '',
+        group: '1',
+        materialType: 'text',
+      },
+      createFormRules: {
+        title: [
+          {
+            required: true,
+            message: '请输入文本标题',
+            trigger: 'blur',
+          },
+        ],
+        type: [
+          {
+            required: true,
+            message: '请选择文本类型',
+            trigger: 'change',
+          },
+        ],
+        content: [
+          {
+            required: true,
+            message: '请输入文本内容',
+            trigger: 'blur',
+          },
+        ],
+      },
     }
   },
   computed: {
@@ -188,15 +205,31 @@ export default {
     }),
   },
   created() {
-    this[QUERY_MATERIAL_LIST]()
+    this.QUERY_MATERIAL_LIST()
   },
   methods: {
-    ...mapActions([QUERY_MATERIAL_LIST]),
+    ...mapActions([QUERY_MATERIAL_LIST, METERIAL_ADD_TEXT]),
     /**
      * 确定添加文本
      */
     addTextConfirm() {
-      this.createTextVisibleControl()
+      this.materialAddText()
+    },
+    /**
+     * 添加文本
+     */
+    materialAddText() {
+      this.$refs.createTextForm.validate(async (valid) => {
+        if (valid) {
+          console.log(this.createTextForm)
+          const { code, data } = await this.METERIAL_ADD_TEXT(this.createTextForm)
+          if (code === 200) {
+            // 新增成功
+            this.createTextVisibleControl()
+            this[QUERY_MATERIAL_LIST]()
+          }
+        }
+      })
     },
     /**
      * 新建文本模态框弹出与关闭
