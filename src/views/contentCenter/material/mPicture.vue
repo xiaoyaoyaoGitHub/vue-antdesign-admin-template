@@ -241,7 +241,7 @@ export default {
      */
     async upload() {
       let formData = new FormData()
-      formData.append('group', '0')
+      formData.append('group', '1')
       formData.append('type', 'image')
       this.fileList.map((item) => {
         formData.append('file', item.originFileObj)

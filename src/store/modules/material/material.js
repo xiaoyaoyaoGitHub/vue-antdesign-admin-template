@@ -19,18 +19,19 @@ export default {
       state.meterialImageLists = list
     },
   },
+  getters: {},
   actions: {
     // 查询素材接口
     async [QUERY_MATERIAL_LIST]({ commit }, params = {}) {
       const res = await meterialList(params)
       switch (params.materialType) {
         case 'miniapp':
-          commit(QUERY_MATERIAL_LIST_MINIAPP, res.data.commonList)
+          commit(QUERY_MATERIAL_LIST_MINIAPP, res.data.personList)
           break
         case 'image':
-          commit(QUERY_MATERIAL_LIST_IMAGE, res.data.commonList)
+          commit(QUERY_MATERIAL_LIST_IMAGE, res.data.personList)
         default:
-          commit(QUERY_MATERIAL_LIST, res.data.commonList)
+          commit(QUERY_MATERIAL_LIST, res.data.personList)
       }
       return res
     },

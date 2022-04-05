@@ -60,28 +60,36 @@
         <a-button>移除分组</a-button>
         <a-button>删除</a-button>
         <div class="lists">
-          <div class="item selected">
+          <!-- <div class="item selected">
             <div class="select">
               <a-icon class="checkIcon" type="check" />
               小程序名称
             </div>
-          </div>
-          <div class="item" v-for="(item, index) in meterialMiniAppLists" :key="index">
+          </div> -->
+          <div
+            @click="select(item.id)"
+            class="item"
+            :class="selectIndex.includes(item.id) ? 'selected' : ''"
+            v-for="(item, index) in meterialMiniAppLists"
+            :key="index"
+          >
             <div class="select">
               <a-icon class="checkIcon" type="check" />
-              小程序名称
+              {{ item.appid }}
+              <div>标题:{{ item.title }}</div>
+              <div>路经:{{ item.path }}</div>
             </div>
           </div>
-          <div class="item">
+          <!-- <div class="item">
             <div class="select">
               <a-icon class="checkIcon" type="check" />
-              小程序名称
+              {{ item.content }}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <!-- 添加分类 -->s
+    <!-- 添加分类 -->
     <a-modal title="添加分类" :visible="typeModalVisible" @ok="addTypeModalConfirm" @cancel="typeModalControl">
       <a-form :form="formClassiesType" :labelCol="{ span: 4, offset: 0 }" :wrapperCol="{ span: 12, offset: 2 }">
         <a-form-item label="分类名称" has-feedback>
@@ -181,11 +189,22 @@ export default {
         path: [],
         type: [],
       },
+      selectIndex: [],
     }
   },
   computed: {
     ...mapState({
-      meterialMiniAppLists: (state) => state.material.meterialMiniAppLists,
+      meterialMiniAppLists: (state) => {
+        const lists = state.material.meterialMiniAppLists
+        lists.map((item) => {
+          const content = JSON.parse(item.content)
+          item.title = content.title
+          item.appid = content.appid
+          item.path = content.path
+        })
+        console.log(lists)
+        return lists
+      },
     }),
   },
   created() {
@@ -195,6 +214,18 @@ export default {
     ...mapActions([METERIAL_UPLOAD, QUERY_MATERIAL_LIST]),
     beforeUpload() {
       return false
+    },
+    select(idx) {
+      console.log(this.selectIndex.includes(idx))
+      if (this.selectIndex.includes(idx)) {
+        const currentIndex = this.selectIndex.findIndex((item) => item === idx)
+        console.log(currentIndex)
+        const currentList = this.selectIndex.concat()
+        currentList.splice(currentIndex, 1)
+        this.selectIndex = currentList
+      } else {
+        this.selectIndex.push(idx)
+      }
     },
     /**
      * 图片的上传和删除
