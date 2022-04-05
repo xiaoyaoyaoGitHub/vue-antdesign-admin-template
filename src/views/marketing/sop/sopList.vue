@@ -76,6 +76,8 @@ const data = [
     tags: ['cool', 'teacher'],
   },
 ]
+import { QUERY_JOB_LIST } from '@/store/modules/sop/type'
+import { mapActions } from 'vuex'
 export default {
   name: 'SopList',
   data() {
@@ -85,7 +87,11 @@ export default {
       visible: false,
     }
   },
+  created() {
+    this.QUERY_JOB_LIST()
+  },
   methods: {
+    ...mapActions([QUERY_JOB_LIST]),
     afterVisibleChange(val) {
       console.log('visible', val)
     },

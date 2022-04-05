@@ -136,7 +136,13 @@
           </a-select>
         </a-form-model-item>
         <a-form-model-item label="小程序封面">
-          <a-upload list-type="picture-card" :file-list="fileList" @change="handlePicChange">
+          <a-upload
+            list-type="picture-card"
+            :showUploadList="{ showPreviewIcon: false }"
+            :beforeUpload="beforeUpload"
+            :file-list="fileList"
+            @change="handlePicChange"
+          >
             <div v-if="fileList.length === 0">
               <a-icon type="plus" />
               <div class="ant-upload-text">Upload</div>
@@ -187,6 +193,9 @@ export default {
   },
   methods: {
     ...mapActions([METERIAL_UPLOAD, QUERY_MATERIAL_LIST]),
+    beforeUpload() {
+      return false
+    },
     /**
      * 图片的上传和删除
      */

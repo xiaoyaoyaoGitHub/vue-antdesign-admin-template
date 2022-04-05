@@ -136,9 +136,9 @@
 const columns = [
   {
     title: '全部活码',
-    dataIndex: 'mediaId',
+    dataIndex: 'content',
     width: '25%',
-    scopedSlots: { customRender: 'mediaId' },
+    scopedSlots: { customRender: 'content' },
   },
   {
     title: '添加人/添加时间',
@@ -205,7 +205,7 @@ export default {
     }),
   },
   created() {
-    this.QUERY_MATERIAL_LIST()
+    this.QUERY_MATERIAL_LIST({ materialType: 'text', group: '1' })
   },
   methods: {
     ...mapActions([QUERY_MATERIAL_LIST, METERIAL_ADD_TEXT]),
@@ -227,7 +227,7 @@ export default {
             this.$message.success('添加成功', () => {
               // 新增成功
               this.createTextVisibleControl()
-              this[QUERY_MATERIAL_LIST]()
+              this[QUERY_MATERIAL_LIST]({ materialType: 'text', group: '1' })
             })
           }
         }

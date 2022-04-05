@@ -66,7 +66,7 @@
           bordered
           :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
         >
-          <template v-for="col in ['name', 'operator']" :slot="col" slot-scope="text, record, index">
+          <!-- <template v-for="col in ['name', 'operator']" :slot="col" slot-scope="text, record, index">
             <div :key="col">
               <a-input
                 v-if="record.editable"
@@ -78,6 +78,9 @@
                 {{ text }}
               </template>
             </div>
+          </template> -->
+          <template slot="filePath" slot-scope="filePath">
+            <img width="30" :src="filePath" />
           </template>
           <template slot="operation" slot-scope="text, record, index">
             <div class="editable-row-operations">
@@ -122,7 +125,14 @@
           </a-select>
         </a-form-model-item>
         <a-form-model-item label="图片上传">
-          <a-upload :multiple="true" list-type="picture-card" :file-list="fileList" @change="handlePicChange">
+          <a-upload
+            :multiple="true"
+            :showUploadList="{ showPreviewIcon: false }"
+            :beforeUpload="beforeUpload"
+            list-type="picture-card"
+            :file-list="fileList"
+            @change="handlePicChange"
+          >
             <div v-if="fileList.length < 10">
               <a-icon type="plus" />
               <div class="ant-upload-text">Upload</div>
@@ -140,10 +150,10 @@
 <script>
 const columns = [
   {
-    title: '全部活码',
-    dataIndex: 'mediaId',
+    title: '图片',
+    dataIndex: 'filePath',
     width: '25%',
-    scopedSlots: { customRender: 'mediaId' },
+    scopedSlots: { customRender: 'filePath' },
   },
   {
     title: '添加人/添加时间',
@@ -191,6 +201,9 @@ export default {
   },
   methods: {
     ...mapActions([METERIAL_UPLOAD, QUERY_MATERIAL_LIST]),
+    beforeUpload() {
+      return false
+    },
     /**
      * 图片的上传和删除
      */

@@ -15,7 +15,9 @@
       </a-form-item>
       <a-form-item label="请输入发送内容">
         <template v-for="(item, index) in contentList">
-          <SelectComponent :key="index" />
+          <keep-alive :key="item.id">
+            <SelectComponent :idx="item.id + index" @remove="remove" ref="selectComponent" />
+          </keep-alive>
         </template>
         <a-space>
           <a-button type="primary" @click="addContent">添加内容</a-button>
@@ -23,7 +25,7 @@
       </a-form-item>
       <a-form-item :wrapper-col="{ offset: 4 }">
         <a-space>
-          <a-button type="primary">保存</a-button>
+          <a-button type="primary" @click="save">保存</a-button>
         </a-space>
       </a-form-item>
     </a-form>
@@ -33,6 +35,7 @@
 <script>
 import moment from 'moment'
 import SelectComponent from './selectComponent.vue'
+import { nextTick } from 'vue'
 export default {
   name: 'CreateSopTask',
   components: { SelectComponent },
@@ -51,12 +54,44 @@ export default {
       }
       return result
     },
+    save() {
+      const executeContent = { attachments: [], text: '' }
+      const cpts = this.$refs['selectComponent']
+      cpts.forEach((item) => {
+        // console.log(item.getInfo())
+        const info = item.getInfo()
+        if (info.msgtype === 'text') {
+          // 文本
+          executeContent.text = info.content
+        }
+        if (info.msgtype === 'image') {
+          executeContent.attachments.push(info)
+        }
+        if (info.msgtype === 'link') {
+          executeContent.attachments.push(info)
+        }
+        if (info.msgtype === 'miniprogram') {
+          executeContent.attachments.push(info)
+        }
+      })
+      console.log(executeContent)
+    },
+    remove(idx) {
+      const currentContentList = this.contentList.concat()
+      const selectComponent = this.$refs['selectComponent']
+      const removeIndex = selectComponent.findIndex((item, index) => item._uid === idx)
+      console.log(removeIndex)
+      currentContentList.splice(removeIndex, 1)
+      this.$nextTick(() => {
+        this.contentList = currentContentList
+        console.log(currentContentList)
+      })
+    },
     disabledDate(current) {
-      // Can not select days before today and today
       return current && current < moment().endOf('day')
     },
     addContent() {
-      this.contentList = this.contentList.concat({})
+      this.contentList = this.contentList.concat({ id: new Date().getTime() })
     },
     disabledDateTime() {
       return {
