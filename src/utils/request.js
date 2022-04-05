@@ -60,6 +60,10 @@ service.interceptors.response.use((response) => {
   const currentHref = window.location.href
   if (currentHref.indexOf('user/login') < 0) {
     if (data.code === 401) {
+      notification.error({
+        message: '登录失效',
+        description: '请重新登录',
+      })
       store.dispatch('Logout').then(() => {
         setTimeout(() => {
           window.location.reload()

@@ -59,7 +59,13 @@
       <div class="table">
         <a-button class="editable-add-btn"> 全部 </a-button>
         <a-button class="editable-add-btn"> 批量导入 </a-button>
-        <a-table :columns="columns" :data-source="data" bordered :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }">
+        <a-table
+          rowKey="id"
+          :columns="columns"
+          :data-source="meterialImageLists"
+          bordered
+          :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+        >
           <template v-for="col in ['name', 'operator']" :slot="col" slot-scope="text, record, index">
             <div :key="col">
               <a-input
@@ -134,16 +140,16 @@
 <script>
 const columns = [
   {
-    title: '活码',
-    dataIndex: 'name',
+    title: '全部活码',
+    dataIndex: 'mediaId',
     width: '25%',
-    scopedSlots: { customRender: 'name' },
+    scopedSlots: { customRender: 'mediaId' },
   },
   {
     title: '添加人/添加时间',
-    dataIndex: 'operator',
+    dataIndex: 'createTime',
     width: '40%',
-    scopedSlots: { customRender: 'operator' },
+    scopedSlots: { customRender: 'createTime' },
   },
   {
     title: '操作',
@@ -151,27 +157,16 @@ const columns = [
     scopedSlots: { customRender: 'operation' },
   },
 ]
-
-const data = []
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    name: `企业管家介绍 ${i}`,
-    operator: `山成-西区${i}`,
-  })
-}
 import Vue from 'vue'
-import { mapActions } from 'vuex'
-import { METERIAL_UPLOAD } from '@/store/modules/material/type'
+import { mapActions, mapState } from 'vuex'
+import { METERIAL_UPLOAD, QUERY_MATERIAL_LIST } from '@/store/modules/material/type'
 export default {
   name: 'MPicture',
   components: {},
   data() {
-    this.cacheData = data.map((item) => ({ ...item }))
     return {
       form: this.$form.createForm(this, { name: 'horizontal_login' }),
       formClassiesType: this.$form.createForm(this, { name: 'addClassType' }),
-      data,
       columns,
       editingKey: '',
       selectedRowKeys: [],
@@ -186,8 +181,16 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapState({
+      meterialImageLists: (state) => state.material.meterialImageLists,
+    }),
+  },
+  created() {
+    this.queryImageList()
+  },
   methods: {
-    ...mapActions([METERIAL_UPLOAD]),
+    ...mapActions([METERIAL_UPLOAD, QUERY_MATERIAL_LIST]),
     /**
      * 图片的上传和删除
      */
@@ -202,7 +205,12 @@ export default {
       this.upload()
       // this.createImageVisibleControl()
     },
-
+    /**
+     * 查询图片
+     */
+    queryImageList(params = {}) {
+      this.QUERY_MATERIAL_LIST({ materialType: 'image', group: '1' })
+    },
     /**
      * 添加图片按钮
      */
@@ -228,9 +236,9 @@ export default {
       const { code, data } = await this.METERIAL_UPLOAD(formData)
       if (code === 200) {
         // 上传成功
-        this.$message.success('上传成功', 3, () => {
+        this.$message.success('上传成功', () => {
           this.fileList = []
-
+          this.queryImageList()
           this.createImageVisibleControl()
         })
       } else {

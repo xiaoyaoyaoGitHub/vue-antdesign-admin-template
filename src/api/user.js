@@ -16,7 +16,7 @@ import users from '@/config/user'
  */
 export function login(parameter) {
   return axios({
-    url: '/admin/login',
+    url: '/xhotelxms/admin/login',
     method: 'post',
     data: parameter,
   })

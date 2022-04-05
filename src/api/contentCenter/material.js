@@ -9,12 +9,12 @@ export function meterialList(parameter) {
   return axios({
     url: '/xhotelxms/meterial/list',
     method: 'get',
-    data: parameter,
+    params: parameter,
   })
 }
 
 /**
- * 新增文本
+ * 新增素材
  * @param {} parameter
  * @returns
  */
@@ -37,3 +37,15 @@ export function meterialUpload(params) {
     data: params,
   })
 }
+// /**
+//  * 添加小程序类型
+//  * @param {*} params
+//  * @returns
+//  */
+// export function meterialAddMiniApp(params) {
+//   return axios({
+//     url: '/xhotelxms/meterial/add/text',
+//     method: 'post',
+//     data: params,
+//   })
+// }

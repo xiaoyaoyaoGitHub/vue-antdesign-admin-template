@@ -169,7 +169,7 @@ export default {
       createTextVisible: false, //新建文本模态框
       createTextForm: {
         type: 'text',
-        // title: '',
+        title: '',
         content: '',
         group: '1',
         materialType: 'text',
@@ -222,11 +222,13 @@ export default {
       this.$refs.createTextForm.validate(async (valid) => {
         if (valid) {
           console.log(this.createTextForm)
-          const { code, data } = await this.METERIAL_ADD_TEXT(this.createTextForm)
+          const { code, data } = await this.METERIAL_ADD_TEXT({ materialType: 'text', group: '1', content: this.createTextForm })
           if (code === 200) {
-            // 新增成功
-            this.createTextVisibleControl()
-            this[QUERY_MATERIAL_LIST]()
+            this.$message.success('添加成功', () => {
+              // 新增成功
+              this.createTextVisibleControl()
+              this[QUERY_MATERIAL_LIST]()
+            })
           }
         }
       })
