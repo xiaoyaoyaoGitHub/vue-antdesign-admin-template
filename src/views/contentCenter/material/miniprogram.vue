@@ -78,6 +78,7 @@
               {{ item.appid }}
               <div>标题:{{ item.title }}</div>
               <div>路经:{{ item.path }}</div>
+              <img width="50%" mode="widthFix" :src="item.filePath" alt="" />
             </div>
           </div>
           <!-- <div class="item">
@@ -245,7 +246,7 @@ export default {
         fileData.append('materialType', 'miniapp')
         fileData.append('type', 'miniapp')
         fileData.append('group', '1')
-        fileData.append('content', this.createMiniappForm)
+        fileData.append('content', JSON.stringify(this.createMiniappForm))
         const { code, data } = await this.METERIAL_UPLOAD(fileData)
         if (code === 200) {
           this.$message.success('添加成功', () => {

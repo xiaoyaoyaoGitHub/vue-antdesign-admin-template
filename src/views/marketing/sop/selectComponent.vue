@@ -133,6 +133,7 @@
             <p>小程序appid:{{ item.info.appid }}</p>
             <p>小程序路径:{{ item.info.path }}</p>
             <p>标题:{{ item.info.title }}</p>
+            <img width="100%" :src="item.filePath" alt="" />
           </a-card>
         </a-list-item>
       </a-list>
@@ -209,12 +210,23 @@ export default {
           },
         ]
       } else if (this.typeValue === '3') {
-        const { title, appid, path } = this.selectMini.info
+        console.log(this.selectMini)
+        const { info = {}, filePath, mediaId } = this.selectMini || {}
+        const { title, appid, path } = info
         this.miniForm.setFieldsValue({
           title,
           appid,
           path,
         })
+        this.miniImg = [
+          {
+            url: filePath,
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            pic_media_id: mediaId,
+          },
+        ]
       }
       this.handleVisible()
     },
