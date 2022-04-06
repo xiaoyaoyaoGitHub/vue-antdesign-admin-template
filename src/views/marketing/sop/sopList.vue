@@ -37,9 +37,13 @@
                   <p>图文地址:{{ item.link.path }}</p>
                   <img width="200" height="100" :src="item.link.picurl" alt="" />
                 </a-card>
-                <!-- <a-list-item-meta>
-                  <a-avatar slot="avatar" :src="item.link.picurl" />
-                </a-list-item-meta> -->
+              </template>
+              <template v-if="item.msgtype === 'miniprogram'">
+                <a-card :title="item.miniprogram.title">
+                  <p>小程序appid:{{ item.miniprogram.appid }}</p>
+                  <p>图文地址:{{ item.miniprogram.path }}</p>
+                  <img width="200" height="100" :src="item.miniprogram.picurl" alt="" />
+                </a-card>
               </template>
             </a-list-item>
           </a-list>
