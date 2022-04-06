@@ -11,6 +11,7 @@ const user = {
     avatar: '',
     roles: [],
     info: {},
+    hotelCode: '159704865675580231',
   },
 
   mutations: {

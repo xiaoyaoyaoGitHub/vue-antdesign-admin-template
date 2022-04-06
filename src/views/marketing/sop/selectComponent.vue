@@ -11,13 +11,13 @@
     <template v-if="typeValue === '0'">
       <a-input v-model="textContent" type="textarea" />
       <a-space>
-        <a-button type="primary" ghost>从素材库上传</a-button>
+        <a-button :loading="loading" @click="showModel('text')" type="primary" ghost>从素材库上传</a-button>
       </a-space>
     </template>
     <template v-if="typeValue === '1'">
       <a-upload
         :showUploadList="{ showPreviewIcon: false }"
-        :beforeUpload="customRequest"
+        :customRequest="customImageRequest"
         list-type="picture-card"
         :multiple="false"
         :file-list="fileList"
@@ -29,7 +29,7 @@
         </div>
       </a-upload>
       <a-space>
-        <a-button type="primary" ghost>从素材库上传</a-button>
+        <a-button type="primary" :loading="loading" @click="showModel('image')" ghost>从素材库上传</a-button>
       </a-space>
     </template>
     <template v-if="typeValue === '2'">
@@ -48,7 +48,7 @@
             list-type="picture-card"
             :showUploadList="{ showPreviewIcon: false }"
             :file-list="graphicsImg"
-            :beforeUpload="customRequest"
+            :customRequest="customGraphicsRequest"
             @change="handleChangeGraphicsImg"
           >
             <div v-if="graphicsImg.length < 1">
@@ -64,6 +64,9 @@
             </div>
           </a-upload> -->
         </a-form-item>
+        <a-space>
+          <a-button type="primary" :loading="loading" @click="showModel('image')" ghost>从素材库上传</a-button>
+        </a-space>
       </a-form>
     </template>
     <template v-if="typeValue === '3'">
@@ -75,14 +78,14 @@
           <a-input v-decorator="['appid']" />
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 10 }" :label-col="{ span: 4 }" label="小程序路径">
-          <a-input v-decorator="['page']" />
+          <a-input v-decorator="['path']" />
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 10 }" :label-col="{ span: 4 }" label="小程序封面">
           <a-upload
             list-type="picture-card"
             :file-list="miniImg"
             :showUploadList="{ showPreviewIcon: false }"
-            :beforeUpload="customRequest"
+            :customRequest="customMiniRequest"
             @change="handleChangeMiniImg"
           >
             <div v-if="miniImg.length < 1">
@@ -91,12 +94,61 @@
             </div>
           </a-upload>
         </a-form-item>
+        <a-space>
+          <a-button type="primary" :loading="loading" @click="showModel()" ghost>从素材库上传</a-button>
+        </a-space>
       </a-form>
     </template>
+    <a-modal width="50%" title="选择素材" :visible="visible" @ok="handleOk" @cancel="handleCancel">
+      <a-list :grid="{ gutter: 16, column: 4 }" :data-source="meterials">
+        <a-list-item
+          @click="selectedText(item)"
+          style="cursor: pointer"
+          v-if="item.materialType === 'text' && typeValue === '0'"
+          :class="{ selectItem: selectText.id === item.id }"
+          slot="renderItem"
+          slot-scope="item"
+        >
+          <a-card :title="item.info.title"> {{ item.info.content }} </a-card>
+        </a-list-item>
+        <a-list-item
+          :class="{ selectImgItem: selectImg.id === item.id }"
+          @click="selectImage(item)"
+          style="cursor: pointer"
+          v-else-if="item.materialType === 'image' && typeValue === '1'"
+          slot="renderItem"
+          slot-scope="item"
+        >
+          <img :src="item.filePath" mode="widthFix" />
+        </a-list-item>
+        <a-list-item
+          @click="selectedMini(item)"
+          style="cursor: pointer"
+          v-else-if="item.materialType === 'miniapp' && typeValue === '3'"
+          :class="{ selectItem: selectMini.id === item.id }"
+          slot="renderItem"
+          slot-scope="item"
+        >
+          <a-card :title="item.info.title">
+            <p>小程序appid:{{ item.info.appid }}</p>
+            <p>小程序路径:{{ item.info.path }}</p>
+            <p>标题:{{ item.info.title }}</p>
+          </a-card>
+        </a-list-item>
+      </a-list>
+    </a-modal>
   </div>
 </template>
 
 <script>
+function getBase64(img, callback) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
+}
+import { QUERY_MATERIAL_LIST } from '@/store/modules/material/type'
+import { mapActions, mapState } from 'vuex'
+import { addImage } from '@/api/manage'
 export default {
   name: 'SelectComponent',
   data() {
@@ -109,14 +161,17 @@ export default {
       graphicsImg: [],
       miniImg: [],
       imageUrl: '',
-      loading: false,
-      loadingMini: false,
       types: [
         { label: '文字', value: '0' },
         { label: '图片', value: '1' },
         { label: '微信图文', value: '2' },
         { label: '小程序', value: '3' },
       ],
+      visible: false,
+      loading: false,
+      selectText: {},
+      selectImg: {},
+      selectMini: {},
     }
   },
   props: {
@@ -124,8 +179,68 @@ export default {
       type: Number,
     },
   },
+  computed: {
+    ...mapState({
+      meterials: (state) => {
+        const current = state.material.meterials.concat() || []
+        current.map((item) => {
+          item.info = JSON.parse(item.content)
+        })
+        return current
+      },
+      hotelCode: (state) => state.user.hotelCode,
+    }),
+  },
   emits: ['remove'],
   methods: {
+    ...mapActions([QUERY_MATERIAL_LIST]),
+    handleOk() {
+      if (this.typeValue === '0') {
+        this.textContent = this.selectText.info.content
+      } else if (this.typeValue === '1') {
+        const url = this.selectImg.filePath
+        this.fileList = [
+          {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url,
+            media_id: this.selectImg.mediaId,
+          },
+        ]
+      } else if (this.typeValue === '3') {
+        const { title, appid, path } = this.selectMini.info
+        this.miniForm.setFieldsValue({
+          title,
+          appid,
+          path,
+        })
+      }
+      this.handleVisible()
+    },
+    handleCancel() {
+      this.handleVisible()
+    },
+    handleVisible() {
+      this.visible = !this.visible
+    },
+    selectedText(item) {
+      this.selectText = item
+    },
+    selectImage(item) {
+      this.selectImg = item
+    },
+    selectedMini(item) {
+      this.selectMini = item
+    },
+    async showModel(type) {
+      this.loading = true
+      const { code } = await this.QUERY_MATERIAL_LIST({ materialType: type, group: '1' })
+      if (code === 200) {
+        this.loading = false
+        this.handleVisible()
+      }
+    },
     onChange(e) {
       console.log('radio1 checked', e.target.value, this.typeValue)
     },
@@ -136,6 +251,51 @@ export default {
     },
     customRequest() {
       return false
+    },
+    async customImageRequest({ file }) {
+      getBase64(file, async (img) => {
+        const { code, data: url } = await addImage({ file: img.split(',')[1], hotelCode: this.hotelCode })
+        if (code === 200) {
+          this.fileList = [
+            {
+              url,
+              uid: '-1',
+              name: 'image.png',
+              status: 'done',
+            },
+          ]
+        }
+      })
+    },
+    async customGraphicsRequest({ file }) {
+      getBase64(file, async (img) => {
+        const { code, data: url } = await addImage({ file: img.split(',')[1], hotelCode: this.hotelCode })
+        if (code === 200) {
+          this.graphicsImg = [
+            {
+              url,
+              uid: '-1',
+              name: 'image.png',
+              status: 'done',
+            },
+          ]
+        }
+      })
+    },
+    async customMiniRequest({ file }) {
+      getBase64(file, async (img) => {
+        const { code, data: url } = await addImage({ file: img.split(',')[1], hotelCode: this.hotelCode })
+        if (code === 200) {
+          this.miniImg = [
+            {
+              url,
+              uid: '-1',
+              name: 'image.png',
+              status: 'done',
+            },
+          ]
+        }
+      })
     },
     handleChange({ fileList }) {
       console.log(fileList)
@@ -165,7 +325,7 @@ export default {
         // 图片
         result = {
           msgtype: 'image',
-          image: { media_id: 'MEDIA_ID', pic_url: 'http://p.qpic.cn/pic_wework/3474110808/7a6344sdadfwehe42060/0' },
+          image: { media_id: fileList[0].mediaId, pic_url: fileList[0].url },
         }
       }
       if (typeValue === '2') {
@@ -174,7 +334,7 @@ export default {
           result = {
             msgtype: 'link',
             link: {
-              picurl: '',
+              picurl: graphicsImg[0].url,
               ...value,
             },
           }
@@ -187,7 +347,7 @@ export default {
           result = {
             msgtype: 'miniprogram',
             miniprogram: {
-              picurl: '',
+              picurl: miniImg[0].url,
               ...value,
             },
           }
@@ -205,5 +365,19 @@ export default {
   margin: 15px 0;
   border: 1px solid #eee;
   padding: 15px;
+}
+.selectItem {
+  .ant-list-item {
+    .ant-card-bordered {
+      border-color: @primary-color;
+    }
+  }
+}
+.selectImgItem {
+  border: 1px solid @primary-color;
+}
+img {
+  width: 100%;
+  display: block;
 }
 </style>

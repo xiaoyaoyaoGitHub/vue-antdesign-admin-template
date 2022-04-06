@@ -243,6 +243,7 @@ export default {
         const fileData = new FormData()
         fileData.append('file', this.fileList[0].originFileObj)
         fileData.append('materialType', 'miniapp')
+        fileData.append('type', 'miniapp')
         fileData.append('group', '1')
         fileData.append('content', this.createMiniappForm)
         const { code, data } = await this.METERIAL_UPLOAD(fileData)

@@ -60,3 +60,16 @@ export function saveService(parameter) {
     data: parameter,
   })
 }
+
+/**
+ * 添加图片
+ * @param {*} data
+ * @returns
+ */
+export function addImage(data) {
+  return axios({
+    url: '/common/files/rest/upload/base64?folderName=qyTools',
+    method: 'post',
+    data,
+  })
+}

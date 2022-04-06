@@ -9,10 +9,10 @@
           <a-button
             v-for="(item, index) in typeList"
             :key="index"
-            data-type="新用户"
-            @click="chooseType(item)"
-            :type="type === item ? 'primary' : 'default'"
-            >{{ item }}</a-button
+            :data-type="item.value"
+            @click="chooseType(item.value)"
+            :type="type === item.value ? 'primary' : 'default'"
+            >{{ item.label }}</a-button
           >
           <!-- <a-button data-type="老用户" @click="chooseType('老用户')" type="default">老用户</a-button>
           <a-button data-type="常用用户" @click="chooseType('常用用户')" type="default">常用用户</a-button> -->
@@ -28,7 +28,12 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+const CUSTOMER = {
+  new_customer: '新用户',
+  twice_customer: '老用户',
+  usually_customer: '常驻用户',
+}
+import { mapActions, mapState } from 'vuex'
 import { CREATE_SOP } from '@/store/modules/sop/type'
 export default {
   name: 'CreateSop',
@@ -36,8 +41,23 @@ export default {
     return {
       form: this.$form.createForm(this, { name: 'createSop' }),
       type: '',
-      typeList: ['新用户', '老用户', '常用用户'],
+      typeList: [
+        {
+          label: '新用户',
+          value: 'new_customer',
+        },
+        { label: '老用户', value: 'twice_customer' },
+        {
+          label: '常驻用户',
+          value: 'usually_customer',
+        },
+      ],
     }
+  },
+  computed: {
+    ...mapState({
+      hotelCode: (state) => state.user.hotelCode,
+    }),
   },
   methods: {
     ...mapActions([CREATE_SOP]),
@@ -68,7 +88,7 @@ export default {
       e.preventDefault()
       this.form.validateFields((valid, values) => {
         if (!valid) {
-          this.createSop(values)
+          this.createSop({ hotelCode: this.hotelCode, ...values })
         }
       })
     },

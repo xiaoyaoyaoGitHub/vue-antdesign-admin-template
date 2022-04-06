@@ -9,6 +9,7 @@ export default {
   },
   mutations: {
     [QUERY_MATERIAL_LIST](state, lists) {
+      // 文本素材
       state.meterials = lists
     },
     [QUERY_MATERIAL_LIST_MINIAPP](state, list) {
@@ -16,6 +17,7 @@ export default {
       state.meterialMiniAppLists = list
     },
     [QUERY_MATERIAL_LIST_IMAGE](state, list) {
+      // 图片素材
       state.meterialImageLists = list
     },
   },

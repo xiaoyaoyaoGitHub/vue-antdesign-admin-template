@@ -24,6 +24,12 @@ const err = (error) => {
         description: data.message,
       })
     }
+    if (error.response.status === 502) {
+      notification.error({
+        message: '接口502',
+        description: data.message,
+      })
+    }
     if (error.response.status === 401 && !(data.result && data.result.isLoginRequest)) {
       notification.error({
         message: '非法访问',
